@@ -1,7 +1,7 @@
 import api.GeoLocation;
 import api.NodeData;
 
-public class Node implements NodeData {
+public class Node implements NodeData{
     private int id;
     private double weight;
     private int tag;
@@ -14,20 +14,19 @@ public class Node implements NodeData {
         this.location = null;
     }
 
-    public Node(int id, double weight, int tag, Geo location){ //numbers constructor - if we dont get Node but we get the data
+    public Node(int id, double weight, int tag, Geo location){ //Data constructor
         this.id = id;
         this.weight = weight;
         this.tag = tag;
         this.location = location;
     }
 
-    public Node(NodeData node){ // constructor
+    public Node(NodeData node){ //Object constructor
         this.id = node.getKey();
         this.tag = node.getTag();
         this.weight = node.getWeight();
-        this.location = (Geo)node.getLocation();
+        this.location = (Geo)node.getLocation(); //???
     }
-
     @Override
     public int getKey() {
         return this.id;
@@ -62,7 +61,6 @@ public class Node implements NodeData {
 
     @Override
     public void setInfo(String s) {
-
     }
 
     @Override

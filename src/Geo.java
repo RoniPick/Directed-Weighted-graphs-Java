@@ -1,26 +1,26 @@
 import api.GeoLocation;
 
-public class Geo implements GeoLocation {
+public class Geo implements GeoLocation{
     public double x;
     public double y;
     public double z;
-    public double distance;
 
-    public Geo(GeoLocation g){ //constructor
-        this.x = g.x();
-        this.y = g.y();
-        this.z = g.z();
-    }
-
-    public Geo(){ //empty constructor
+    public Geo(){
         this.x = 0;
         this.y = 0;
         this.z = 0;
     }
-    public Geo(double x, double y, double z){ //numbers constructor - if we dont get Node but we get the data
+
+    public Geo(double x, double y, double z){
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+
+    public Geo(GeoLocation g){
+        this.x = g.x();
+        this.y = g.y();
+        this.z = g.z();
     }
 
     @Override
@@ -36,6 +36,18 @@ public class Geo implements GeoLocation {
     @Override
     public double z() {
         return this.z;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public void setY(double y) {
+        this.y = y;
+    }
+
+    public void setZ(double z) {
+        this.z = z;
     }
 
     @Override

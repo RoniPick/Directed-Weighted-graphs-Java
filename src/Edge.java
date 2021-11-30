@@ -13,20 +13,19 @@ public class Edge implements EdgeData{
         this.weight = 0;
     }
 
-    public Edge(EdgeData e){ //constructor
+    public Edge(int src, int dest, double weight, int tag){ //Data constructor
+        this.src = src;
+        this.dest = dest;
+        this.weight = weight;
+        this.tag = tag;
+    }
+
+    public Edge(EdgeData e){ //Object constructor
         this.src = e.getSrc();
         this.dest = e.getDest();
         this.weight = e.getWeight();
         this.tag = e.getTag();
     }
-
-    public Edge(int src, int dest, double weight, int tag){  //numbers constructor - if we dont get Node but we get the data
-        this.src = src;
-        this.dest = dest;
-        this.tag = tag;
-        this.weight = weight;
-    }
-
     @Override
     public int getSrc() {
         return this.src;
@@ -62,3 +61,4 @@ public class Edge implements EdgeData{
         this.tag = t;
     }
 }
+
