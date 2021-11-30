@@ -1,6 +1,6 @@
-import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 class GraphTest {
 
@@ -52,14 +52,14 @@ class GraphTest {
     void getMC() {
         Graph g = new Graph();
         int a=0;
-        assertEquals(a, g.getMC());
+        Assertions.assertEquals(a, g.getMC());
         Geo n = new Geo();
         Node node = new Node(1, 1.233, 1, n);
         g.addNode(node);
         a++;
-        assertEquals(a, g.getMC());
+        Assertions.assertEquals(a, g.getMC());
         g.removeNode(node.getKey());
         a++;
-        assertEquals(a, g.getMC());
+        Assertions.assertEquals(a, g.getMC());
     }
 }

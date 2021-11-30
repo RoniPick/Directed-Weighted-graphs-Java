@@ -1,10 +1,16 @@
+import api.DirectedWeightedGraph;
+import api.DirectedWeightedGraphAlgorithms;
+import api.NodeData;
+
 import java.util.List;
 
-public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms{
+public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
+
 
 
     @Override
     public void init(DirectedWeightedGraph g) {
+
     }
 
     @Override
@@ -41,6 +47,7 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms{
     public List<NodeData> tsp(List<NodeData> cities) {
         return null;
     }
+
 
     @Override
     public boolean save(String file) {

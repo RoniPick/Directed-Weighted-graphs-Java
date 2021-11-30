@@ -11,7 +11,7 @@ public class Node implements NodeData{
         this.id = 0;
         this.weight = 0;
         this.tag = 0;
-        this.location = null;
+        this.location = new Geo(); // empty constructor -> x=0, y=0, z=0
     }
 
     public Node(int id, double weight, int tag, Geo location){ //Data constructor
