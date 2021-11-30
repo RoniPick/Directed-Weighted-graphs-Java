@@ -1,3 +1,5 @@
+import api.EdgeData;
+
 public class Edge implements EdgeData{
     private int src;
     public int dest;

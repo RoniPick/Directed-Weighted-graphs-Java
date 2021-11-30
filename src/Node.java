@@ -1,3 +1,6 @@
+import api.GeoLocation;
+import api.NodeData;
+
 public class Node implements NodeData {
     private int id;
     private double weight;

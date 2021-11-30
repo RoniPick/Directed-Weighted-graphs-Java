@@ -1,4 +1,6 @@
-public class Geo implements GeoLocation{
+import api.GeoLocation;
+
+public class Geo implements GeoLocation {
     public double x;
     public double y;
     public double z;
