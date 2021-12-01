@@ -41,6 +41,10 @@ public class Edge implements EdgeData{
         return this.weight;
     }
 
+    public void setWeight(double weight){
+        this.weight = weight;
+    }
+
     @Override
     public String getInfo() {
         return null;
