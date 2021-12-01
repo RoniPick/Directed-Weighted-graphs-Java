@@ -21,6 +21,10 @@ public class Graph implements DirectedWeightedGraph {
 
     @Override
     public EdgeData getEdge(int src, int dest) {
+        if(src == dest){
+            return null;
+        }
+
         keys k = new keys(src, dest);
         if (edges.containsKey(k)){
             return edges.get(k);
@@ -31,22 +35,19 @@ public class Graph implements DirectedWeightedGraph {
 
     @Override
     public void addNode(NodeData n) { //if n exist - continue
-        boolean flag=false;
-
         if(!edges.containsKey(n.getKey())) {
             Node cur = new Node(n);
             nodes.put(n.getKey(), cur);
-            flag = true;
-        }
-
-        if (flag==true){
             this.counter++;
         }
+
     }
 
 
     @Override
     public void connect(int src, int dest, double w) { //if the edge exist - we override it (exception)
+        if(src == dest || w < 0)
+            return;
 
         keys k = new keys(src, dest);
         if(edges.containsKey(k)){ // if the edge exist - we change it's weight
