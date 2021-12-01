@@ -72,12 +72,13 @@ public class Graph implements DirectedWeightedGraph {
 
     @Override
     public Iterator<EdgeData> edgeIter() {
+       // return edges.values().iterator();
         return null;
     }
 
     @Override
     public Iterator<EdgeData> edgeIter(int node_id) {
-        return null;
+        return nodes.get(node_id).getOutEdge().iterator();
     }
 
     @Override
@@ -85,10 +86,12 @@ public class Graph implements DirectedWeightedGraph {
         if(!this.nodes.containsKey(key)){
             return null;
         }
+
         Node n=this.nodes.get(key);
         LinkedList<Integer> in=n.getInEdge();
         LinkedList<Integer> out= n.getOutEdge();
         int i=0;
+
          while(in.get(i)!=null){
             removeEdge(in.get(i), key);
             this.counter++;

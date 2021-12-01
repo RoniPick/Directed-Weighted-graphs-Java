@@ -2,10 +2,6 @@ public class keys {
     private int src;
     private int dest;
 
-    public keys(){ //empty constructor
-        this.src = 0;
-        this.dest = 0;
-    }
 
     public keys(int s, int d){ //constructor
         this.src = s;
