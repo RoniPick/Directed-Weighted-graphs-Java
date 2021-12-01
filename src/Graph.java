@@ -88,12 +88,22 @@ public class Graph implements DirectedWeightedGraph {
         Node n=this.nodes.get(key);
         LinkedList<Integer> in=n.getInEdge();
         LinkedList<Integer> out= n.getOutEdge();
-        for (int i = 0; i <in.size() ; i++) {
+        int i=0;
+         while(in.get(i)!=null){
             removeEdge(in.get(i), key);
+            this.counter++;
+            in.remove(i);
         }
-        for (int i = 0; i <out.size() ; i++) {
+
+        while(out.get(i)!=null){
             removeEdge(key,out.get(i));
+            this.counter++;
+            out.remove(i);
         }
+
+        n.setInEdge(in);
+        n.setOutEdge(out);
+
         nodes.remove(key);
         return n;
     }

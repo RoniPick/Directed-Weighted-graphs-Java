@@ -62,6 +62,14 @@ public class Node implements NodeData{
     }
 
 
+    public void setOutEdge(LinkedList<Integer> outEdge) {
+        this.outEdge = outEdge;
+    }
+
+    public void setInEdge(LinkedList<Integer> inEdge) {
+        this.inEdge = inEdge;
+    }
+
     @Override
     public int getKey() {
         return this.id;
