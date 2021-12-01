@@ -10,6 +10,17 @@ public class Graph implements DirectedWeightedGraph {
     private HashMap<keys, Edge> edges; //hash map for the edges - keys is a class for the src and dest of the edge, Double for the edge weight
     private HashMap<Integer, Node> nodes; //hash map for the nodes - Integer for the key, return the info of the node
 
+    public Graph() { //empty constructor
+        this.counter = 0;
+        this.edges = new HashMap<keys, Edge>();
+        this.nodes = new HashMap<Integer, Node>();
+    }
+
+    public Graph(Graph g){
+        this.counter = g.counter;
+        this.edges = g.edges;
+        this.nodes = g.nodes;
+    }
 
     @Override
     public NodeData getNode(int key) {
@@ -35,8 +46,10 @@ public class Graph implements DirectedWeightedGraph {
 
     @Override
     public void addNode(NodeData n) { //if n exist - continue
-        if(!edges.containsKey(n.getKey())) {
-            Node cur = new Node(n);
+        if(n == null)
+            return;
+        if(!nodes.containsKey(n.getKey())) {
+            Node cur = new Node((Node)n);
             nodes.put(n.getKey(), cur);
             this.counter++;
         }
@@ -92,22 +105,30 @@ public class Graph implements DirectedWeightedGraph {
         LinkedList<Integer> out= n.getOutEdge();
         int i=0;
 
-         while(in.get(i)!=null){
-            removeEdge(in.get(i), key);
+        if(in.size() == 0 && this.nodes.containsKey(key) && out.size() == 0){ // if there is a point with no edges connected to or from her
+            this.nodes.remove(key);
             this.counter++;
-            in.remove(i);
         }
 
-        while(out.get(i)!=null){
-            removeEdge(key,out.get(i));
-            this.counter++;
-            out.remove(i);
+        else {
+            while (in.get(i) != null) {
+                removeEdge(in.get(i), key);
+                this.counter++;
+                in.remove(i);
+            }
+
+            while (out.get(i) != null) {
+                removeEdge(key, out.get(i));
+                this.counter++;
+                out.remove(i);
+            }
+
+            n.setInEdge(in);
+            n.setOutEdge(out);
+
+            nodes.remove(key);
+
         }
-
-        n.setInEdge(in);
-        n.setOutEdge(out);
-
-        nodes.remove(key);
         return n;
     }
 

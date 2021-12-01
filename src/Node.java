@@ -29,11 +29,13 @@ public class Node implements NodeData{
         this.outEdge = new LinkedList();
     }
 
-    public Node(NodeData node){ //Object constructor
+    public Node(Node node){ //Object constructor
         this.id = node.getKey();
         this.tag = node.getTag();
         this.weight = node.getWeight();
         this.location = (Geo)node.getLocation();
+        this.inEdge = node.getInEdge();
+        this.outEdge = node.getOutEdge();
     }
 
     public void addIn(Node node){

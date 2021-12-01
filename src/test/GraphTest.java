@@ -52,11 +52,13 @@ class GraphTest {
         Graph g = new Graph();
         int a=0;
         Assertions.assertEquals(a, g.getMC());
+
         Geo n = new Geo();
         Node node = new Node(1, 1.233, 1, n);
         g.addNode(node);
         a++;
         Assertions.assertEquals(a, g.getMC());
+
         g.removeNode(node.getKey());
         a++;
         Assertions.assertEquals(a, g.getMC());
