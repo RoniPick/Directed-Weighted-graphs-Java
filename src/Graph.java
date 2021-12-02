@@ -4,13 +4,13 @@ import api.NodeData;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 
 public class Graph implements DirectedWeightedGraph {
     private int counter=0; //counting if there is any changes for the MC
     private HashMap<keys, Edge> edges; //hash map for the edges - keys is a class for the src and dest of the edge, Double for the edge weight
     private HashMap<Integer, Node> nodes; //hash map for the nodes - Integer for the key, return the info of the node
     private int itercounter = 0; // saves the last iterate MC data in order to compare between the iterates
+
 
     public Graph() { //empty constructor
         this.counter = 0;
@@ -26,10 +26,19 @@ public class Graph implements DirectedWeightedGraph {
         this.itercounter = g.itercounter;
     }
 
+
+    public HashMap<keys, Edge> getEdges() {
+        return edges;
+    }
+
+    public HashMap<Integer, Node> getNodes() {
+        return nodes;
+    }
+
     @Override
     public NodeData getNode(int key) {
         if(nodes.containsKey(key))
-            return nodes.get(key);
+            return this.nodes.get(key);
         else
             return null;
     }
@@ -42,7 +51,7 @@ public class Graph implements DirectedWeightedGraph {
 
         keys k = new keys(src, dest);
         if (edges.containsKey(k)){
-            return edges.get(k);
+            return this.edges.get(k);
         }
         else
             return null;
@@ -54,7 +63,7 @@ public class Graph implements DirectedWeightedGraph {
             return;
         if(!nodes.containsKey(n.getKey())) {
             Node cur = new Node((Node)n);
-            nodes.put(n.getKey(), cur);
+            this.nodes.put(n.getKey(), cur);
             this.counter++;
         }
 
@@ -68,13 +77,13 @@ public class Graph implements DirectedWeightedGraph {
 
         keys k = new keys(src, dest);
         if(edges.containsKey(k)){ // if the edge exist - we change it's weight
-            edges.get(k).setWeight(w);
+            this.edges.get(k).setWeight(w);
             this.counter++;
         }
 
         else{
             Edge e = new Edge(src, dest, w, 0); // tag = 0
-            edges.put(k, e);
+            this.edges.put(k, e);
             this.counter++;
             nodes.get(src).addOut(nodes.get(dest));
             nodes.get(dest).addIn(nodes.get(src));
@@ -161,7 +170,7 @@ public class Graph implements DirectedWeightedGraph {
             n.setInEdge(in);
             n.setOutEdge(out);
 
-            nodes.remove(key);
+            this.nodes.remove(key);
 
         }
         return n;
@@ -169,12 +178,14 @@ public class Graph implements DirectedWeightedGraph {
 
     @Override
     public EdgeData removeEdge(int src, int dest) {
+//        Edge edge = new Edge(src, dest, 0, 0);
         keys k = new keys(src, dest);
+        k.equals(edges);
         if(edges.containsKey(k)){
-            Edge e=edges.get(k);
+            Edge e=this.edges.get(k);
             nodes.get(src).removeOut(nodes.get(dest));
             nodes.get(dest).removeIn(nodes.get(src));
-            edges.remove(k);
+            this.edges.remove(k);
             this.counter++;
             return e;
         }
