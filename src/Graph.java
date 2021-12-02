@@ -4,22 +4,26 @@ import api.NodeData;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Graph implements DirectedWeightedGraph {
     private int counter=0; //counting if there is any changes for the MC
     private HashMap<keys, Edge> edges; //hash map for the edges - keys is a class for the src and dest of the edge, Double for the edge weight
     private HashMap<Integer, Node> nodes; //hash map for the nodes - Integer for the key, return the info of the node
+    private int itercounter = 0; // saves the last iterate MC data in order to compare between the iterates
 
     public Graph() { //empty constructor
         this.counter = 0;
         this.edges = new HashMap<keys, Edge>();
         this.nodes = new HashMap<Integer, Node>();
+        this.itercounter = 0;
     }
 
     public Graph(Graph g){
         this.counter = g.counter;
         this.edges = g.edges;
         this.nodes = g.nodes;
+        this.itercounter = g.itercounter;
     }
 
     @Override
@@ -80,18 +84,49 @@ public class Graph implements DirectedWeightedGraph {
 
     @Override
     public Iterator<NodeData> nodeIter() {
-        return null;
+        Iterator node = nodes.entrySet().iterator();
+        try{
+            if(getMC() != this.itercounter && this.itercounter != 0) {
+                this.itercounter = this.getMC(); // changing this iterator counter to the current graph MC -> to know for the next iterate if it changed again
+                throw new RuntimeException("Graph has been changed");
+            }
+        }
+
+        catch (RuntimeException e){
+            System.out.println("Graph has been changed");
+        }
+
+        return node;
     }
 
     @Override
     public Iterator<EdgeData> edgeIter() {
-       // return edges.values().iterator();
-        return null;
+        //Iterator edge; = edges.entrySet().iterator();
+        LinkedList edge=new LinkedList();
+        int index = 0;
+        while(index<nodes.size()){
+            edge.add(edgeIter(nodes.get(index).getKey()));
+            index++;
+        }
+
+        return edge.iterator();
     }
 
     @Override
     public Iterator<EdgeData> edgeIter(int node_id) {
+        try{
+            if(getMC() != this.itercounter && this.itercounter != 0) {
+                this.itercounter = this.getMC(); // changing this iterator counter to the current graph MC -> to know for the next iterate if it changed again
+                throw new RuntimeException("Graph has been changed");
+            }
+        }
+
+        catch (RuntimeException e){
+            System.out.println("Graph has been changed");
+        }
+
         return nodes.get(node_id).getOutEdge().iterator();
+
     }
 
     @Override
