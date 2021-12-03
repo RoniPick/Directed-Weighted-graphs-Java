@@ -4,7 +4,8 @@ import java.util.HashMap;
 import static org.junit.jupiter.api.Assertions.*;
 
 class GraphTest {
-    private HashMap<keys, Edge> edges;
+    private HashMap<Integer,HashMap<Integer,Edge>> edges;
+    private HashMap<Integer,Edge> innerMap;
     private HashMap<Integer, Node> nodes;
     Geo g = new Geo();
     Graph graph = new Graph();
@@ -32,28 +33,22 @@ class GraphTest {
         edges = graph.getEdges();
         Edge edge = new Edge();
         Edge edge1 = new Edge(1, 3, 4.22, 0);
-        Edge edge2 = new Edge(0, 2, 9, 0);
-//        Edge edge3 = new Edge(2, 2, 5, 0);
-        keys k= new keys(edge.getSrc(), edge.getDest());
-        edges.put(k, edge);
+        Edge edge2 = new Edge(4, 2, 9, 0);
+//      Edge edge3 = new Edge(2, 2, 5, 0);
+        edges.put(edge.getSrc(),new HashMap<>());
+        edges.get(edge.getSrc()).put(edge.getDest(),edge);
+        edges.put(edge1.getSrc(),new HashMap<>());
+        edges.get(edge1.getSrc()).put(edge1.getDest(),edge1);
+        edges.put(edge2.getSrc(),new HashMap<>());
+        edges.get(edge2.getSrc()).put(edge2.getDest(),edge2);
 
-        keys k1= new keys(edge1.getSrc(), edge1.getDest());
-        edges.put(k1, edge1);
-
-        keys k2= new keys(edge2.getSrc(), edge2.getDest());
-        edges.put(k2, edge2);
-
-//        keys k3= new keys(edge3.getSrc(), edge3.getDest());
-//        edges.put(k3, edge3);
-//
-//        assertFalse(edges.containsKey(k3));
-        assertTrue(edges.containsValue(edge1));
-        assertTrue(edges.containsValue(edge2));
-        assertTrue(edges.containsValue(edge));
-        assertEquals(edge, edges.get(k));
-        assertEquals(edge1, edges.get(k1));
-        assertEquals(edge2, edges.get(k2));
-        assertNotEquals(edge2, edges.get(k));
+        assertTrue(edges.get(edge.getSrc()).containsValue(edge));
+        assertTrue(edges.get(edge1.getSrc()).containsValue(edge1));
+        assertTrue(edges.get(edge2.getSrc()).containsValue(edge2));
+        assertEquals(edge, edges.get(edge.getSrc()).get(edge.getDest()));
+        assertEquals(edge1, edges.get(edge1.getSrc()).get(edge1.getDest()));
+        assertEquals(edge2, edges.get(edge2.getSrc()).get(edge2.getDest()));
+        assertNotEquals(edge2, edges.get(edge.getSrc()).get(edge.getDest()));
     }
 
     @Test
@@ -129,21 +124,28 @@ class GraphTest {
     void removeEdge() {
         graph = new Graph();
         edges = graph.getEdges();
+        nodes = graph.getNodes();
         assertTrue(graph.edgeSize()== 0);
+
+        Node node = new Node();
+        Node node1 = new Node(1, 1.22, 0, g);
+        g.setY(4); g.setX(2);
+        Node node2 = new Node(2, 9, 0, g);
+        g.setX(12); g.setY(9);
+        Node node3 = new Node(3, 3, 0, g);
+        nodes.put(0,node); nodes.put(1,node1); nodes.put(2,node2); nodes.put(3,node3);
 
         Edge edge1 = new Edge(1, 3, 4.22, 0);
         Edge edge2 = new Edge(0, 2, 9, 0);
 
-        keys k1= new keys(edge1.getSrc(), edge1.getDest());
-        edges.put(k1, edge1);
-
-        keys k2= new keys(edge2.getSrc(), edge2.getDest());
-        edges.put(k2, edge2);
+        edges.put(edge1.getSrc(),new HashMap<>());
+        edges.get(edge1.getSrc()).put(edge1.getDest(),edge1);
+        edges.put(edge2.getSrc(),new HashMap<>());
+        edges.get(edge2.getSrc()).put(edge2.getDest(),edge2);
         assertTrue(graph.edgeSize()== 2);
 
-        graph.removeEdge(k1.getSrc(), k1.getDest());
-        assertTrue(graph.edgeSize()== 1);
-        assertFalse(graph.getEdges().containsValue(edge1));
+        graph.removeEdge(edge1.getSrc(), edge1.getDest());
+        assertFalse(graph.getEdges().get(edge1.getSrc()).containsValue(edge1));
 
     }
 
@@ -171,21 +173,21 @@ class GraphTest {
     @Test
     void edgeSize() {
         graph = new Graph();
+        edges = graph.getEdges();
         assertTrue(graph.edgeSize()== 0 );
 
         Edge edge = new Edge();
         Edge edge1 = new Edge(1, 3, 4.22, 0);
-        Edge edge2 = new Edge(0, 2, 9, 0);
-        keys k= new keys(edge.getSrc(), edge.getDest());
-        edges = graph.getEdges();
-        edges.put(k, edge);
+        Edge edge2 = new Edge(4, 2, 9, 0);
+
+        edges.put(edge.getSrc(),new HashMap<>());
+        edges.get(edge.getSrc()).put(edge.getDest(),edge);
         assertTrue(graph.edgeSize()== 1);
 
-        keys k1= new keys(edge1.getSrc(), edge1.getDest());
-        edges.put(k1, edge1);
-
-        keys k2= new keys(edge2.getSrc(), edge2.getDest());
-        edges.put(k2, edge2);
+        edges.put(edge1.getSrc(),new HashMap<>());
+        edges.get(edge1.getSrc()).put(edge1.getDest(),edge1);
+        edges.put(edge2.getSrc(),new HashMap<>());
+        edges.get(edge2.getSrc()).put(edge2.getDest(),edge2);
         assertTrue(graph.edgeSize()== 3);
     }
 

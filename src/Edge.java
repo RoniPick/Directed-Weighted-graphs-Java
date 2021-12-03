@@ -51,9 +51,7 @@ public class Edge implements EdgeData{
     }
 
     @Override
-    public void setInfo(String s) {
-
-    }
+    public void setInfo(String s) {}
 
     @Override
     public int getTag() {
