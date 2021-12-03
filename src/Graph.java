@@ -35,6 +35,15 @@ public class Graph implements DirectedWeightedGraph {
         return nodes;
     }
 
+    public void setEdges(HashMap<keys, Edge> edges) {
+        this.edges = edges;
+    }
+
+    public void setNodes(HashMap<Integer, Node> nodes) {
+        this.nodes = nodes;
+    }
+
+
     @Override
     public NodeData getNode(int key) {
         if(nodes.containsKey(key))
@@ -207,4 +216,18 @@ public class Graph implements DirectedWeightedGraph {
     public int getMC() { // return how many changes we did on the graph
         return this.counter;
     }
+
+    public void setMC(int x){
+        this.counter = x;
+    }
+
+    public int getItercounter() {
+        return itercounter;
+    }
+
+    public void setItercounter(int itercounter) {
+        this.itercounter = itercounter;
+    }
+
+
 }

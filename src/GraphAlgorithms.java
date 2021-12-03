@@ -5,26 +5,32 @@ import api.NodeData;
 import java.util.List;
 
 public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
-
+    private Graph graph;
 
 
     @Override
     public void init(DirectedWeightedGraph g) {
-
+        this.graph = (Graph) g;
     }
 
     @Override
     public DirectedWeightedGraph getGraph() {
-        return null;
+        return this.graph;
     }
 
     @Override
     public DirectedWeightedGraph copy() {
-        return null;
+        Graph g = new Graph();
+        g.setItercounter(this.graph.getItercounter());
+        g.setEdges(this.graph.getEdges());
+        g.setNodes(this.graph.getNodes());
+        g.setMC(this.graph.getMC());
+        return g;
     }
 
     @Override
     public boolean isConnected() {
+
         return false;
     }
 
@@ -40,6 +46,7 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
 
     @Override
     public NodeData center() {
+
         return null;
     }
 
