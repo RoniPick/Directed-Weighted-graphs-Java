@@ -4,6 +4,9 @@ import api.NodeData;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import com.google.gson.*;
 
@@ -34,13 +37,49 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
 
     @Override
     public boolean isConnected() {
+        Iterator nodesIterator = graph.getNodes().entrySet().iterator();
 
-        return false;
+        while (nodesIterator.hasNext()) {
+            HashMap.Entry element = (HashMap.Entry) nodesIterator.next();
+            int curr = ((int) element.getKey());
+            if (!BFS(curr))
+                return false;
+        }
+        return true;
     }
+
+    public Boolean BFS(int n) {
+        LinkedList<Integer> visited = new LinkedList<>(); // we save the nodes id that we visited already
+        LinkedList<Integer> queue = new LinkedList(); // in the queue we will put only the nodes that we can reach to from our node.
+        queue.add(n);
+
+        while (!queue.isEmpty()) {
+        int temp = queue.poll();
+        LinkedList<Integer> out = graph.getNodes().get(temp).getOutEdge();
+        if (!visited.contains(temp))
+            visited.add(temp);
+        int index = 0;
+        while (index < out.size()) {
+            queue.add(out.get(index));
+            index++;
+        }
+
+    }
+        return (visited.size()== graph.nodeSize());
+}
+
 
     @Override
     public double shortestPathDist(int src, int dest) {
-        return 0;
+            if(shortestPath(src,dest)==null)
+                return -1;
+            List <NodeData> temp = shortestPath(src,dest);
+            int index = 0;
+            double sum=0;
+            while(index<temp.size()-1){
+                sum+= sum+ graph.getEdge(temp.get(index).getKey(),temp.get(index+1).getKey()).getWeight();
+            }
+            return sum;
     }
 
     @Override
@@ -86,10 +125,9 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
     public boolean load(String file) { // write to the program
         boolean flag = false;
 
-        try {
+       // try
 
             flag = true;
-        }
 
 
         return flag;
