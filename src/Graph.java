@@ -9,7 +9,7 @@ public class Graph implements DirectedWeightedGraph {
     private int counter=0; //counting if there is any changes for the MC
     //private HashMap<keys, Edge> edges; //hash map for the edges - keys is a class for the src and dest of the edge, Double for the edge weight
     private HashMap<Integer, HashMap<Integer,Edge>> edges;
-    private HashMap<Integer,Edge>innerMap;
+    private HashMap<Integer,Edge> innerMap; // for the dest Node and the edge
     private HashMap<Integer, Node> nodes; //hash map for the nodes - Integer for the key, return the info of the node
     private int itercounter = 0; // saves the last iterate MC data in order to compare between the iterates
 
@@ -90,18 +90,19 @@ public class Graph implements DirectedWeightedGraph {
         }
 
         else{
-
             Edge e = new Edge(src, dest, w, 0); // tag = 0
-            edges.get(src).put(dest,e);
-            this.counter++;
-            nodes.get(src).addOut(nodes.get(dest));
-            nodes.get(dest).addIn(nodes.get(src));
-            if(edges.containsKey(src))
+            if(edges.containsKey(src)) // if we have the src but we dint have a edge to the dest
                 edges.get(src).put(dest,e);
-            else{
+
+            else{ // if we dont have the src Node we create a new HashMap and adding to it the edge
                 edges.put(src,new HashMap<Integer,Edge>());
                 edges.get(src).put(dest,e);
             }
+
+            this.counter++;
+            nodes.get(src).addOut(nodes.get(dest));
+            nodes.get(dest).addIn(nodes.get(src));
+
 
         }
 
