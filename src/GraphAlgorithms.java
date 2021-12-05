@@ -1,7 +1,12 @@
 import api.DirectedWeightedGraph;
 import api.DirectedWeightedGraphAlgorithms;
 import api.NodeData;
+
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.List;
+import com.google.gson.*;
+
 
 public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
     private Graph graph;
@@ -57,11 +62,36 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
 
     @Override
     public boolean save(String file) {
-        return false;
+        boolean flag = false;
+        Graph graph = this.graph;
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String json = gson.toJson(graph);
+
+        try{
+            FileWriter f = new FileWriter(file);
+            f.write(gson.toJson(json));
+            f.close();
+            flag=true;
+        }
+
+        catch (IOException e) {
+            e.printStackTrace();
+            flag = false;
+        }
+
+        return flag;
     }
 
     @Override
-    public boolean load(String file) {
-        return false;
+    public boolean load(String file) { // write to the program
+        boolean flag = false;
+
+        try {
+
+            flag = true;
+        }
+
+
+        return flag;
     }
 }
