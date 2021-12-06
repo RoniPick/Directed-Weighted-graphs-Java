@@ -28,6 +28,26 @@ public class Graph implements DirectedWeightedGraph {
         this.itercounter = g.itercounter;
     }
 
+    public Graph(JsonToGraph graph){
+        this.setMC(0);
+        this.itercounter = 0;
+        nodes = new HashMap<Integer, Node>();
+        edges = new HashMap<Integer, HashMap<Integer,Edge>>();
+
+//        for(Integer i: graph.getNodes().keySet()){
+//            nodes.put(graph.getNodes().get(i).getKey(), graph.getNodes().get(i));
+//        }
+//
+//        for(Integer i: graph.getEdges().keySet()){
+//            for(Integer j:graph.getEdges().get(i).keySet())
+//            {
+//                HashMap<Integer, Edge> edge = new HashMap<>();
+//                edge.put(j,graph.getEdges().get(i).get(j));
+//                edges.put(i,edge);
+//            }
+//        }
+    }
+
     public HashMap<Integer, HashMap<Integer, Edge>> getEdges() {
         return edges;
     }
@@ -84,12 +104,7 @@ public class Graph implements DirectedWeightedGraph {
         if( src == dest || w < 0)
             return;
 
-        if(edges.get(src).containsKey(dest)){ // if the edge exist - we change it's weight
-            this.edges.get(src).get(dest).setWeight(w);
-            this.counter++;
-        }
-
-        else{
+        if (!edges.containsKey(src) || !edges.get(src).containsKey(dest)) {
             Edge e = new Edge(src, dest, w, 0); // tag = 0
             if(edges.containsKey(src)) // if we have the src but we dint have a edge to the dest
                 edges.get(src).put(dest,e);
@@ -103,14 +118,16 @@ public class Graph implements DirectedWeightedGraph {
             nodes.get(src).addOut(nodes.get(dest));
             nodes.get(dest).addIn(nodes.get(src));
 
-
         }
-
+        else if (edges.get(src).containsKey(dest)){ // if the edge exist - we change it's weight
+            this.edges.get(src).get(dest).setWeight(w);
+            this.counter++;
+        }
     }
 
     @Override
     public Iterator<NodeData> nodeIter() {
-        Iterator node = nodes.entrySet().iterator();
+        Iterator node = nodes.values().iterator();
         try{
             if(getMC() != this.itercounter && this.itercounter != 0) {
                 this.itercounter = this.getMC(); // changing this iterator counter to the current graph MC -> to know for the next iterate if it changed again

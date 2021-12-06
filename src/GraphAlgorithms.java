@@ -2,10 +2,11 @@ import api.DirectedWeightedGraph;
 import api.DirectedWeightedGraphAlgorithms;
 import api.NodeData;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.stream.JsonReader;
 
 
 public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
@@ -63,13 +64,13 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
     @Override
     public boolean save(String file) {
         boolean flag = false;
-        Graph graph = this.graph;
+        JsonToGraph graph = new JsonToGraph().fromGraph(this.graph);
+        System.out.println(graph);
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String json = gson.toJson(graph);
 
         try{
             FileWriter f = new FileWriter(file);
-            f.write(gson.toJson(json));
+            f.write(gson.toJson(graph));
             f.close();
             flag=true;
         }
@@ -82,13 +83,26 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
         return flag;
     }
 
+
     @Override
     public boolean load(String file) { // write to the program
         boolean flag = false;
 
         try {
+            Gson gson = new Gson();
+            FileReader f = new FileReader(file);
+            JsonReader bufferedReader = new JsonReader(f);
+            JsonToGraph gtj = new JsonToGraph();
+            gtj = gson.fromJson(bufferedReader, new TypeToken<JsonToGraph>(){}.getType());
+            Graph g = gtj.toGraph();
+            this.init(g);
 
             flag = true;
+        }
+
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+            flag = false;
         }
 
 
