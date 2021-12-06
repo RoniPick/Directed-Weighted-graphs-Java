@@ -4,6 +4,8 @@ import api.NodeData;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.NoSuchElementException;
+import java.util.function.Consumer;
 
 public class Graph implements DirectedWeightedGraph {
     private int counter=0; //counting if there is any changes for the MC
@@ -144,31 +146,91 @@ public class Graph implements DirectedWeightedGraph {
 
     @Override
     public Iterator<EdgeData> edgeIter() {
-        //Iterator edge; = edges.entrySet().iterator();
-        LinkedList edge=new LinkedList();
-        int index = 0;
-        while(index<nodes.size()){
-            edge.add(edgeIter(nodes.get(index).getKey()));
-            index++;
-        }
 
-        return edge.iterator();
+        return new Iterator<EdgeData>() {
+        Iterator<HashMap<Integer, Edge>> iterator = edges.values().iterator();
+        Iterator<Edge> cur = iterator.next().values().iterator();
+        int MC = getMC();
+
+
+            @Override
+            public boolean hasNext() {
+                if(MC != getMC()){
+                    throw new RuntimeException("Graph has been changed");
+                }
+                if(!cur.hasNext()){
+                    if(iterator.hasNext()){
+                        cur = iterator.next().values().iterator();
+                        return cur.hasNext();
+                    }
+                    return false;
+                }
+                return false;
+            }
+
+            @Override
+            public EdgeData next() throws NoSuchElementException{
+                if(MC != getMC()){
+                    throw new RuntimeException("Graph has been changed");
+                }
+                if(!cur.hasNext()){
+                    if(iterator.hasNext()){
+                        cur = iterator.next().values().iterator();
+                        return cur.next();
+                    }
+                    throw new NoSuchElementException();
+                }
+                return cur.next();
+            }
+
+            @Override
+            public void remove(){
+             Iterator.super.remove();
+            }
+
+            @Override
+            public void forEachRemaining(Consumer<? super EdgeData> action) {
+                Iterator.super.forEachRemaining(action);
+            }
+        };
+
+//        //Iterator edge; = edges.entrySet().iterator();
+//        LinkedList edge=new LinkedList();
+//        int index = 0;
+//        while(index<nodes.size()){
+//            edge.add(edgeIter(nodes.get(index).getKey()));
+//            index++;
+//        }
+
+       // return edge.iterator();
     }
 
     @Override
     public Iterator<EdgeData> edgeIter(int node_id) {
-        try{
-            if(getMC() != this.itercounter && this.itercounter != 0) {
-                this.itercounter = this.getMC(); // changing this iterator counter to the current graph MC -> to know for the next iterate if it changed again
-                throw new RuntimeException("Graph has been changed");
+        return new Iterator<EdgeData>() {
+            Iterator<Edge> iterator = edges.get(node_id).values().iterator();
+            int MC = getMC();
+
+            @Override
+            public EdgeData next() {
+                if(MC != getMC()) {
+                    throw new RuntimeException("Graph has been changed");
+
+                }
+                return iterator.next();
             }
-        }
 
-        catch (RuntimeException e){
-            System.out.println("Graph has been changed");
-        }
+            @Override
+            public boolean hasNext() {
+                if(MC != getMC()){
+                    throw new RuntimeException("Graph has been changed");
+                }
+                return iterator.hasNext();
+            }
 
-        return nodes.get(node_id).getOutEdge().iterator();
+        };
+
+//        return nodes.get(node_id).getOutEdge().iterator();
 
     }
 

@@ -18,5 +18,6 @@ public class main {
         GraphAlgorithms alg = new GraphAlgorithms();
         alg.init(g);
         alg.save("test.json");
+        System.out.println(g.edgeSize());
     }
 }
