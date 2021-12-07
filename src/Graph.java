@@ -157,7 +157,8 @@ public class Graph implements DirectedWeightedGraph {
 
             @Override
             public boolean hasNext() {
-                if(MC != getMC()){
+                if(MC != itercounter && itercounter != 0){ //?
+                    itercounter = getMC();
                     throw new RuntimeException("Graph has been changed");
                 }
                 if (cur == null) return iterator.hasNext();
@@ -166,7 +167,8 @@ public class Graph implements DirectedWeightedGraph {
 
             @Override
             public EdgeData next() throws NoSuchElementException{
-                if(MC != getMC()){
+                if(MC != itercounter && itercounter != 0){ //?
+                    itercounter = getMC();
                     throw new RuntimeException("Graph has been changed");
                 }
                 if(cur == null || !cur.hasNext()){
@@ -214,7 +216,8 @@ public class Graph implements DirectedWeightedGraph {
 
             @Override
             public boolean hasNext() {
-                if(MC != getMC()){
+                if(MC != itercounter){
+                    itercounter = getMC();
                     throw new RuntimeException("Graph has been changed");
                 }
                 return iterator.hasNext();

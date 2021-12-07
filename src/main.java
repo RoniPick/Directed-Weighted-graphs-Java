@@ -24,9 +24,11 @@ public class main {
 //            EdgeData e = it.next();
 //            System.out.println(e);
 //        }
+        g.removeEdge(1,3);
+        it = g.edgeIter();
         GraphAlgorithms alg = new GraphAlgorithms();
         alg.init(g);
         alg.save("test.json");
-//        System.out.println(g.edgeSize());
+        System.out.println(g.edgeSize());
     }
 }
