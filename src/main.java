@@ -1,7 +1,3 @@
-import api.EdgeData;
-
-import java.util.Iterator;
-
 public class main {
 
     public static void main(String[] args) {
@@ -19,14 +15,9 @@ public class main {
         g.connect(2, 0, 8.9);
         g.connect(2, 3, 1.66);
 
-        Iterator<EdgeData> it = g.edgeIter();
-//        while (it.hasNext()) {
-//            EdgeData e = it.next();
-//            System.out.println(e);
-//        }
         GraphAlgorithms alg = new GraphAlgorithms();
         alg.init(g);
         alg.save("test.json");
-//        System.out.println(g.edgeSize());
+        System.out.println(g.edgeSize());
     }
 }
