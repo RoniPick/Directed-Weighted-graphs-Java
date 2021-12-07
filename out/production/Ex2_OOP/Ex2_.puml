@@ -1,0 +1,94 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+interface DirectedWeightedGraph{
+	EdgeData getEdge(int src, int dest)
+	void addNode(NodeData n)
+	void connect(int src, int dest, double w)
+	Iterator<NodeData> nodeIter()
+	Iterator<EdgeData> edgeIter()
+	Iterator<EdgeData> edgeIter(int node_id)
+	NodeData removeNode(int key)
+	EdgeData removeEdge(int src, int dest)
+	int nodeSize()
+	int edgeSize()
+	int getMC()
+}
+interface DirectedWeightedGraphAlgorithms{
+    void init(DirectedWeightedGraph g)
+    DirectedWeightedGraph getGraph()
+    DirectedWeightedGraph copy()
+    boolean isConnected()
+    double shortestPathDist(int src, int dest)
+    List<NodeData> shortestPath(int src, int dest)
+    NodeData center()
+    List<NodeData> tsp(List<NodeData> cities)
+    boolean save(String file)
+    boolean load(String file)
+}
+interface EdgeData{
+    int getSrc()
+	int getDest()
+	double getWeight()
+	String getInfo()
+	void setInfo(String s)
+	int getTag()
+	void setTag(int t)
+}
+
+interface NodeData{
+    int getKey()
+	GeoLocation getLocation()
+	void setLocation(GeoLocation p)
+	double getWeight()
+	void setWeight(double w)
+	String getInfo()
+	void setInfo(String s)
+	int getTag()
+	void setTag(int t)
+}
+
+interface GeoLocation{
+    double x()
+    double y()
+    double z()
+    double distance(GeoLocation g)
+}
+class Node {
+ int id
+ double weight
+  int tag
+  Geo location
+}
+
+class Geo {
+double x
+double y
+double z
+
+}
+class Edge {
+    int src
+    int dest
+    double weight
+    int tag
+}
+class Graph{
+}
+class GraphsAlgorithms{
+}
+
+class Ex2 {
+DirectedWeightedGraph getGrapg(String json_file)
+DirectedWeightedGraphAlgorithms getGrapgAlgo(String json_file)
+void runGUI(String json_file)
+}
+
+Graph -down-> DirectedWeightedGraph
+GraphsAlgorithms -down-> DirectedWeightedGraphAlgorithms
+Edge -down-> EdgeData
+Node -down-> NodeData
+Geo -down-> GeoLocation
+Node -left-> Geo
+
+@enduml

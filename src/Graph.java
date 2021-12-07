@@ -105,22 +105,24 @@ public class Graph implements DirectedWeightedGraph {
             return;
         if( src == dest || w < 0)
             return;
+        Edge e = new Edge(src, dest, w, 0); // tag = 0
 
-        if (!edges.containsKey(src) || !edges.get(src).containsKey(dest)) {
-            Edge e = new Edge(src, dest, w, 0); // tag = 0
-            if(edges.containsKey(src)) // if we have the src but we dint have a edge to the dest
-                edges.get(src).put(dest,e);
-
-            else{ // if we dont have the src Node we create a new HashMap and adding to it the edge
-                edges.put(src,new HashMap<Integer,Edge>());
-                edges.get(src).put(dest,e);
-            }
+        if (!edges.containsKey(src)) {// if we dont have the src Node we create a new HashMap and adding to it the edge
+            edges.put(src,new HashMap<Integer,Edge>());
+            edges.get(src).put(dest,e);
 
             this.counter++;
             nodes.get(src).addOut(nodes.get(dest));
             nodes.get(dest).addIn(nodes.get(src));
 
         }
+        else if(!edges.get(src).containsKey(dest)) { // if we have the src but we dont have a edge to the dest
+            edges.get(src).put(dest, e);
+            this.counter++;
+            nodes.get(src).addOut(nodes.get(dest));
+            nodes.get(dest).addIn(nodes.get(src));
+        }
+
         else if (edges.get(src).containsKey(dest)){ // if the edge exist - we change it's weight
             this.edges.get(src).get(dest).setWeight(w);
             this.counter++;
@@ -149,7 +151,7 @@ public class Graph implements DirectedWeightedGraph {
 
         return new Iterator<EdgeData>() {
         Iterator<HashMap<Integer, Edge>> iterator = edges.values().iterator();
-        Iterator<Edge> cur = iterator.next().values().iterator();
+        Iterator<Edge> cur = null;
         int MC = getMC();
 
 
@@ -158,14 +160,8 @@ public class Graph implements DirectedWeightedGraph {
                 if(MC != getMC()){
                     throw new RuntimeException("Graph has been changed");
                 }
-                if(!cur.hasNext()){
-                    if(iterator.hasNext()){
-                        cur = iterator.next().values().iterator();
-                        return cur.hasNext();
-                    }
-                    return false;
-                }
-                return false;
+                if (cur == null) return iterator.hasNext();
+                return iterator.hasNext() || cur.hasNext();
             }
 
             @Override
@@ -173,12 +169,8 @@ public class Graph implements DirectedWeightedGraph {
                 if(MC != getMC()){
                     throw new RuntimeException("Graph has been changed");
                 }
-                if(!cur.hasNext()){
-                    if(iterator.hasNext()){
-                        cur = iterator.next().values().iterator();
-                        return cur.next();
-                    }
-                    throw new NoSuchElementException();
+                if(cur == null || !cur.hasNext()){
+                   cur = iterator.next().values().iterator();
                 }
                 return cur.next();
             }

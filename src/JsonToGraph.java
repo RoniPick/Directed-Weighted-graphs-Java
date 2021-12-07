@@ -52,6 +52,7 @@ public class JsonToGraph {
             EdgeData e = it2.next();
             this.Edges.add(new JsonToEdges(0,1,0).fromEdge(e));
         }
+        System.out.println(this.Edges);
         return this;
     }
 
