@@ -5,10 +5,8 @@ import api.NodeData;
 import java.io.*;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
@@ -71,28 +69,110 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
         return (visited.size()== graph.nodeSize());
 }
 
-
     @Override
     public double shortestPathDist(int src, int dest) {
-            if(shortestPath(src,dest)==null)
-                return -1;
-            List <NodeData> temp = shortestPath(src,dest);
-            int index = 0;
-            double sum=0;
-            while(index<temp.size()-1){
-                sum+= sum+ graph.getEdge(temp.get(index).getKey(),temp.get(index+1).getKey()).getWeight();
-            }
-            return sum;
+        if (shortestPath(src, dest) == null || src == dest)
+            return -1;
+        List<Double> temp = DDijkstraLength(src);
+        return temp.get(dest);
     }
 
     @Override
     public List<NodeData> shortestPath(int src, int dest) {
-        return null;
+        List<NodeData> path = DijkstraPath(src);
+        Stack<NodeData> reverse = new Stack<>();
+        List <NodeData> ans = new LinkedList<>();
+        int location = dest;
+        NodeData temp = path.get(location);
+        while(temp!=null){
+            reverse.push(temp);
+            location = temp.getKey();
+            temp = path.get(location);
+        }
+        while (!reverse.isEmpty()){
+            ans.add(reverse.pop());
+        }
+        return ans;
     }
+
+    private List<Double> DDijkstraLength(int src){
+        Graph g = (Graph) copy();
+        List <Double> distance = new ArrayList<>(g.nodeSize());
+        List <NodeData> previous = new ArrayList<>(g.nodeSize());
+        Queue<Node> neighbours = new PriorityQueue<>((v1,v2)-> (int) (v1.getWeight()-v2.getWeight()));
+        Iterator<NodeData> nodes = graph.nodeIter();
+        while(nodes.hasNext()){
+            Node a = (Node) nodes.next();
+            a.setWeight(Integer.MAX_VALUE);
+        }
+
+        Node first = (Node) g.getNodes().get(src);
+        first.setWeight(0);
+        neighbours.add(first);
+        while(!neighbours.isEmpty()){
+            Node curr = neighbours.poll(); // we need to take the node with the minimum weight.
+            LinkedList<Integer> out = curr.getOutEdge();
+            int index = 0;
+            while(index<out.size()){
+                if(relax((Edge) g.getEdges().get(src).get(out.get(index))));
+                {
+                    NodeData temp = g.getNode(out.get(index));
+                    distance.add(temp.getKey(), temp.getWeight());
+                    previous.add(temp.getKey(), curr);
+                }
+            }
+
+        }
+        return distance;
+    }
+
+    private List<NodeData> DijkstraPath(int src){
+        Graph g = (Graph) copy();
+        List <Double> distance = new ArrayList<>(g.nodeSize());
+        List <NodeData> previous = new ArrayList<>(g.nodeSize());
+        Queue<Node> neighbours = new PriorityQueue<>((v1,v2)-> (int) (v1.getWeight()-v2.getWeight()));
+        Iterator<NodeData> nodes = graph.nodeIter();
+        while(nodes.hasNext()){
+            Node a = (Node) nodes.next();
+            a.setWeight(Integer.MAX_VALUE);
+        }
+
+        Node first = (Node) g.getNodes().get(src);
+        first.setWeight(0);
+        neighbours.add(first);
+        while(!neighbours.isEmpty()){
+            Node curr = neighbours.poll(); // we need to take the node with the minimum weight.
+            LinkedList<Integer> out = curr.getOutEdge();
+            int index = 0;
+            while(index<out.size()){
+                if(relax((Edge) g.getEdges().get(src).get(out.get(index))));
+                {
+                    NodeData temp = g.getNode(out.get(index));
+                    distance.add(temp.getKey(), temp.getWeight());
+                    previous.add(temp.getKey(), curr);
+                }
+            }
+
+        }
+        return previous;
+    }
+
+    private Boolean relax (Edge e){
+        Node src = (Node) this.graph.getNode(e.getSrc());
+        Node dest = (Node) this.graph.getNode(e.getDest());
+        if(dest.getWeight()<=src.getWeight()+e.getWeight())
+            return false;
+
+        dest.setWeight(src.getWeight()+e.getWeight());
+        return true;
+    }
+
+
 
     @Override
     public NodeData center() {
-
+        // we need to go through every node and search for the longest path that he have.
+        // then, after we finish to search for the longest path, we will choose the minimum node from the maximum group.
         return null;
     }
 
