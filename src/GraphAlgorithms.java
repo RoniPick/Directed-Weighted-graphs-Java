@@ -16,6 +16,14 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
     private Graph graph;
 
 
+    public GraphAlgorithms(){
+        this.graph = new Graph();
+    }
+
+    public GraphAlgorithms(Graph graph){
+        this.graph = graph;
+    }
+
     @Override
     public void init(DirectedWeightedGraph g) {
         this.graph = (Graph) g;
@@ -219,7 +227,7 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
             }.getType());
             Graph g = gtj.toGraph();
             this.init(g);
-            // try
+
 
             flag = true;
         }

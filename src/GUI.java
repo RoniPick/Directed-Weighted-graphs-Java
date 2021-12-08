@@ -1,17 +1,36 @@
-package PACKAGE_NAME;
+import api.NodeData;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.Iterator;
 
 public class GUI {
     public static void main(String[] args) {
-        JFrame frame = new JFrame(); //creates a frame
-        frame.setTitle("Ex2"); //sets title of frame
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit from application
-        frame.setResizable(false); //prevent frame from being resized
-        frame.setSize(420,420); //sets the x-dimension, and y-dimension of frame
-        frame.setVisible(true); //make frame visible
-        frame.getContentPane().setBackground(new Color(255, 255, 255)); //change color of background
+        MyFrame frame = new MyFrame(); //creates a frame
 
+//        Graph graph = new Graph();
+//        Iterator<NodeData> it= graph.nodeIter();
+//        double minX = Double.MAX_VALUE;
+//        double maxX = Double.MIN_VALUE;
+//        double minY = Double.MAX_VALUE;
+//        double maxY = Double.MIN_VALUE;
+//        while(it.hasNext()){
+//            Node a = (Node) it.next();
+//            double Tx = a.getLocation().x();
+//            double Ty = a.getLocation().y();
+//            if(Ty>maxY){
+//                maxY = Ty;
+//            }
+//            if(Ty<minY){
+//                minY = Ty;
+//            }
+//            if(Tx>maxX){
+//                maxX = Tx;
+//            }
+//            if(Tx<minX){
+//                minX = Tx;
+//            }
+//        }
 
 
 
