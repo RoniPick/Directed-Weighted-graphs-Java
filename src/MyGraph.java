@@ -4,7 +4,7 @@ import java.awt.*;
 public class MyGraph extends JFrame {
 
     public MyGraph() throws HeadlessException{
-        JFrame jFrame = new MyFrame();
+        //JFrame jFrame = new MyFrame();
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(600, 600);
         this.add(new MYPanel());
@@ -17,12 +17,13 @@ public class MyGraph extends JFrame {
         public MYPanel(Graph g){
             this.graph = g;
         }
+
         public MYPanel(){
+            this.graph = new Graph();
             this.graph.addNode(new Node(0, 1.2, 0, new Geo(675,998,0.0)));
             this.graph.addNode(new Node(1, 1.6, 0, new Geo(876,47,0.0)));
             this.graph.addNode(new Node(2, 9.2, 0, new Geo(7676,32.10152879327731,0.0)));
             this.graph.addNode(new Node(3, 1.7, 0, new Geo(88,68,0.0)));
-
             this.graph.connect(1, 3, 1.9);
             this.graph.connect(2, 0, 8.9);
             this.graph.connect(2, 3, 1.66);
@@ -38,6 +39,7 @@ public class MyGraph extends JFrame {
             }
         }
     }
+
 
     public static void main(String[] args) {
         Graph g = new Graph();

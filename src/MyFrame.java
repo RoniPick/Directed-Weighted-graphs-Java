@@ -1,7 +1,11 @@
+import api.NodeData;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.ArrayList;
 
 public class MyFrame extends JFrame implements ActionListener {
     JMenuBar menu ; //for the menu bar
@@ -26,25 +30,19 @@ public class MyFrame extends JFrame implements ActionListener {
     JButton button;
     JTextField xValue;
     JTextField yValue;
+    JPanel jp;
+    ArrayList<NodeData> nodeData;
 
 
-
-//    GraphAlgorithms ga;
-//    Graph g;
-//
-//    public void Graph(Graph graph){
-//        this.ga = new GraphAlgorithms();
-//        this.g = graph;
-//        ga.init(g);
-//    }
-
-    MyFrame(){
+    MyFrame(Graph graph){
         this.setTitle("Ex2"); //sets title of frame
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //exit from application
         this.setLayout(null);
         this.setSize(600,600); //sets the x-dimension, and y-dimension of frame
         this.getContentPane().setBackground(new Color(255, 255, 255)); //change color of background to white
-        this.setResizable(true); //frame can be resized
+        this.setResizable(false); //frame can not be resized
+        jp = new JPanel();
+        this.setVisible(true); //make frame visible
 
         menu = new JMenuBar();
         file = new JMenu("File");
@@ -79,28 +77,37 @@ public class MyFrame extends JFrame implements ActionListener {
         menu.add(file); menu.add(edit); menu.add(algorithms); menu.add(help);
         this.setJMenuBar(menu);
 
-        this.setVisible(true); //make frame visible
+        this.setVisible(false); //make frame visible
 
     }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-//        if(label1 != null || label2 != null || firstNode != null || secondNode !=null || button != null | xValue !=null || yValue!=null){
-//            label1 = label2 = null;
-//            firstNode = secondNode = null;
-//            button = null;
-//            xValue = yValue = null;
-//        }
         if(e.getSource() == exit){ // another way to exit the program
             System.exit(0);
         }
 
         else if(e.getSource() == load){
+            JFileChooser jf = new JFileChooser();
+            jf.setCurrentDirectory(new File("."));
+            int ans = jf.showSaveDialog(null); // in order to choose a file to get the Graph from
+            if(ans == JFileChooser.APPROVE_OPTION){
+                String getPath = jf.getSelectedFile().getAbsolutePath();
+
+            }
 
         }
 
         else if(e.getSource() == save){
+            JFileChooser jf = new JFileChooser();
+            jf.setCurrentDirectory(new File("."));
+            int ans = jf.showSaveDialog(null); // in order to choose a file to upload the Graph to
+            if(ans == JFileChooser.APPROVE_OPTION){
+                String getPath = jf.getSelectedFile().getAbsolutePath();
+
+
+            }
 
         }
 
@@ -135,6 +142,7 @@ public class MyFrame extends JFrame implements ActionListener {
             this.setResizable(false); //frame can not be resized
 
             this.setVisible(true);
+            repaint();
 
         }
 
@@ -168,6 +176,7 @@ public class MyFrame extends JFrame implements ActionListener {
             this.setResizable(false); //frame can not be resized
 
             this.setVisible(true);
+            repaint();
         }
 
         else if(e.getSource() == addEdge){
@@ -201,7 +210,7 @@ public class MyFrame extends JFrame implements ActionListener {
             this.setResizable(false); //frame can not be resized
 
             this.setVisible(true);
-
+            repaint();
 
         }
 
@@ -236,6 +245,7 @@ public class MyFrame extends JFrame implements ActionListener {
             this.setResizable(false); //frame can not be resized
 
             this.setVisible(true);
+            repaint();
         }
 
         else if(e.getSource() == sp){
@@ -264,8 +274,4 @@ public class MyFrame extends JFrame implements ActionListener {
 
     }
 
-//    public void paint(Graphics graphics){
-//        Graphics2D g2D = (Graphics2D) graphics;
-//        g2D.drawOval();
-//    }
 }
