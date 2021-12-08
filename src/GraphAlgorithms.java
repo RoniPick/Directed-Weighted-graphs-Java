@@ -56,7 +56,8 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
 
         while (!queue.isEmpty()) {
         int temp = queue.poll();
-        LinkedList<Integer> out = graph.getNodes().get(temp).getOutEdge();
+        Node cur = (Node) graph.getNodes().get(temp);
+        LinkedList<Integer> out = cur.getOutEdge();
         if (!visited.contains(temp))
             visited.add(temp);
         int index = 0;

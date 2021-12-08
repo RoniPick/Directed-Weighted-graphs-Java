@@ -1,12 +1,14 @@
+import api.EdgeData;
+import api.NodeData;
 import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class GraphTest {
-    private HashMap<Integer,HashMap<Integer,Edge>> edges;
+    private HashMap<Integer, HashMap<Integer, EdgeData>> edges;
     private HashMap<Integer,Edge> innerMap;
-    private HashMap<Integer, Node> nodes;
+    private HashMap<Integer, NodeData> nodes;
     Geo g = new Geo();
     Graph graph = new Graph();
 
@@ -53,7 +55,7 @@ class GraphTest {
 
     @Test
     void addNode() {
-        nodes = new HashMap<Integer, Node>();
+        nodes = new HashMap<Integer, NodeData>();
         assertTrue(nodes.isEmpty());
 
         graph = new Graph();
