@@ -78,24 +78,33 @@ class GraphTest {
 
     @Test
     void connect() {
+        Graph g = new Graph();
+        Geo g1 = new Geo(22,34,0);
+        Node a = new Node(1,0,0,g1);
+        Geo g2 = new Geo(14,24,0);
+        Node b = new Node(2,0,0,g2);
+        g.addNode(a);
+        g.addNode(b);
+        g.connect(a.getKey(),b.getKey(),22);
+        assertTrue(g.getEdges().get(a.getKey()).containsKey(b.getKey()));
+        Geo g3 = new Geo(12,17,0);
+        Node c = new Node(2,0,0,g3);
+        g.addNode(c);
+        g.connect(c.getKey(),a.getKey(),4);
+        assertTrue(g.getEdges().get(a.getKey()).containsKey(b.getKey()));
+
+
 
 
     }
+    @Test
+    void nodeIter() {}
 
     @Test
-    void nodeIter() {
-
-    }
+    void edgeIter() {}
 
     @Test
-    void edgeIter() {
-
-    }
-
-    @Test
-    void testEdgeIter() {
-
-    }
+    void testEdgeIter() {}
 
     @Test
     void removeNode() {

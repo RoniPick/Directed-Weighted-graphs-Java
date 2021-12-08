@@ -12,7 +12,6 @@ import java.util.function.Consumer;
 public class Graph implements DirectedWeightedGraph {
     private int counter = 0; //counting if there is any changes for the MC
     private HashMap<Integer, HashMap<Integer, EdgeData>> edges;
-    private HashMap<Integer, EdgeData> innerMap; // for the dest Node and the edge
     private HashMap<Integer, NodeData> nodes; //hash map for the nodes - Integer for the key, return the info of the node
     private int itercounter = 0; // saves the last iterate MC data in order to compare between the iterates
 
@@ -56,7 +55,7 @@ public class Graph implements DirectedWeightedGraph {
     }
 
     public void setEdges(HashMap<Integer, HashMap<Integer, EdgeData>> e) {
-        this.edges = edges;
+        this.edges = e;
     }
 
     public HashMap<Integer, NodeData> getNodes() {

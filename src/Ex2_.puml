@@ -55,27 +55,39 @@ interface GeoLocation{
     double distance(GeoLocation g)
 }
 class Node {
- int id
- double weight
-  int tag
-  Geo location
+ - int id
+ - double weight
+ - int tag
+ - Geo location
+
 }
 
 class Geo {
-double x
-double y
-double z
+- double x
+- double y
+- double z
 
 }
 class Edge {
-    int src
-    int dest
-    double weight
-    int tag
+- int src
+- int dest
+- double weight
+- int tag
 }
 class Graph{
+- int counter
+- HashMap<Integer, HashMap<Integer, EdgeData>> edges
+- HashMap<Integer, NodeData> nodes
+- int itercounter
 }
-class GraphsAlgorithms{
+
+class GraphAlgorithms{
+- Graph graph
+- Boolean BFS(int n)
+- HashMap<Integer, Double> DijkstraLength(int src)
+- HashMap<Integer, NodeData> DijkstraPath(int src)
+- Boolean relax(Edge e)
+
 }
 
 class Ex2 {
@@ -84,11 +96,17 @@ DirectedWeightedGraphAlgorithms getGrapgAlgo(String json_file)
 void runGUI(String json_file)
 }
 
+Ex2 -down-> GraphAlgorithms
+GraphAlgorithms -down-> DirectedWeightedGraphAlgorithms
+GraphAlgorithms -left-> Graph
 Graph -down-> DirectedWeightedGraph
-GraphsAlgorithms -down-> DirectedWeightedGraphAlgorithms
-Edge -down-> EdgeData
+Graph -down-> Edge
+Edge -up-> EdgeData
+Graph -down-> Node
 Node -down-> NodeData
-Geo -down-> GeoLocation
 Node -left-> Geo
+Geo -down-> GeoLocation
+
+
 
 @enduml
