@@ -12,9 +12,7 @@ public class Ex2 {
      */
     public static DirectedWeightedGraph getGrapg(String json_file) {
         DirectedWeightedGraph ans = null;
-        // ****** Add your code here ******
-        //
-        // ********************************
+        ans=getGrapgAlgo(json_file).getGraph();
         return ans;
     }
     /**
@@ -24,9 +22,8 @@ public class Ex2 {
      */
     public static DirectedWeightedGraphAlgorithms getGrapgAlgo(String json_file) {
         DirectedWeightedGraphAlgorithms ans = null;
-        // ****** Add your code here ******
-        //
-        // ********************************
+        ans=new GraphAlgorithms();
+        ans.load(json_file);
         return ans;
     }
     /**
@@ -39,5 +36,6 @@ public class Ex2 {
         // ****** Add your code here ******
         //
         // ********************************
+
     }
 }

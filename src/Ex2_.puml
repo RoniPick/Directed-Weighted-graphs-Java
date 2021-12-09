@@ -100,9 +100,9 @@ Ex2 -down-> GraphAlgorithms
 GraphAlgorithms -down-> DirectedWeightedGraphAlgorithms
 GraphAlgorithms -left-> Graph
 Graph -down-> DirectedWeightedGraph
-Graph -down-> Edge
-Edge -up-> EdgeData
-Graph -down-> Node
+Graph -left-> Edge
+Edge -down-> EdgeData
+Graph -left-> Node
 Node -down-> NodeData
 Node -left-> Geo
 Geo -down-> GeoLocation
