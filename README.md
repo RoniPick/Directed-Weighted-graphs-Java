@@ -1,7 +1,7 @@
 # OOP Task 2 - Design and implementation of directed and weighted graphs in Java
-## presented by: Almog David & Roni Pick
+## _presented by: Almog David & Roni Pick
 
-## introduction:
+## _introduction:
 
 before we start to talk about our task, let's talk about graphs.
 
@@ -16,7 +16,7 @@ In our task we need to represent a directed and weighted graphs and run on them 
  for more information about graph: [Graph](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics))
 
 
-## The classes:
+## _The classes:
 - **Geo class:** This class implements the interface of GeoLocation. Geo represents a geo location <x,y,z>, aka Point3D of node in the graph. Each geoLocation has value of X coordinate, value of Y coordinate and value of Z coordinate.
 
 - **Node class:** This class is implements the interface of Nodedata and it designed to create a vertex in the graph. Each node in the graph has a unique key, location- that represents the geo location <x,y,z> of the node in 3D space, weight, tag and info. the last two used to define properties of the node through which it will be possible to check whether the graph is connected and in addition to calculate path weights in the graph.
