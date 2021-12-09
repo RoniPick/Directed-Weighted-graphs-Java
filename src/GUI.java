@@ -29,13 +29,16 @@ public class GUI {
         JMenuItem save; // adding a bar to save a graph
         JLabel label1;
         JLabel label2;
+        JLabel label3;
         JTextField firstNode;
         JTextField secondNode;
+        JTextField edgeWeight;
         JButton button;
         JTextField xValue;
         JTextField yValue;
         JPanel jp;
-        ArrayList<NodeData> nodeData;
+        ArrayList<NodeData> shortestPath;
+        NodeData graphCenter;
 
         double minX;
         double maxX;
@@ -157,32 +160,43 @@ public class GUI {
                 this.add(button);
                 this.setResizable(false); //frame can not be resized
 
+
+                if(nodeSrc.length() == 0 || nodeDest.length() == 0){
+                    gaMain.init(gaCopy.copy());
+                    repaint();
+                }
+                else{
+                    this.gaMain.getGraph().removeEdge(src, dest);
+                    repaint();
+                }
+
+
                 this.setVisible(true);
                 repaint();
 
             }
 
             else if(e.getSource() == removeNode){
-                label1 = new JLabel("Enter X:");
-                label1.setBounds(10, 10, 50, 20);
+                label1 = new JLabel("Enter Node ID:");
+                label1.setBounds(10, 10, 100, 20);
                 this.add(label1);
 
                 xValue = new JTextField();
                 this.xValue.setBounds(60, 10, 50, 20);
                 this.add(xValue);
-                String nodeX = xValue.getText();
-                int x = Integer.parseInt(nodeX);
+                String ID = xValue.getText();
+                int id = Integer.parseInt(ID);
 
-                label2 = new JLabel("Enter Y:");
-                label2.setBounds(10, 50, 50, 20);
-                this.add(label2);
-
-
-                yValue = new JTextField();
-                this.yValue.setBounds(60, 50, 50, 20);
-                this.add(yValue);
-                String nodeY = yValue.getText();
-                int y = Integer.parseInt(nodeY);
+    //                label2 = new JLabel("Enter Y:");
+    //                label2.setBounds(10, 50, 50, 20);
+    //                this.add(label2);
+    //
+    //
+    //                yValue = new JTextField();
+    //                this.yValue.setBounds(60, 50, 50, 20);
+    //                this.add(yValue);
+    //                String nodeY = yValue.getText();
+    //                int y = Integer.parseInt(nodeY);
 
                 button = new JButton();
                 button.setText("Remove Node");
@@ -190,6 +204,15 @@ public class GUI {
                 button.addActionListener(this);
                 this.add(button);
                 this.setResizable(false); //frame can not be resized
+
+                if(ID.length() == 0){
+                    gaMain.init(gaCopy.copy());
+                    repaint();
+                }
+                else{
+                    this.gaMain.getGraph().removeNode(id);
+                    repaint();
+                }
 
                 this.setVisible(true);
                 repaint();
@@ -218,12 +241,31 @@ public class GUI {
                 String nodeDest = secondNode.getText();
                 int dest = Integer.parseInt(nodeDest);
 
+                label3 = new JLabel("Enter Edge Weight:");
+                label3.setBounds(10, 90, 130, 20);
+                this.add(label3);
+
+                edgeWeight = new JTextField();
+                this.edgeWeight.setBounds(130, 90, 130, 20);
+                this.add(edgeWeight);
+                String weight = edgeWeight.getText();
+                double w = Double.parseDouble(weight);
+
                 button = new JButton();
                 button.setText("Add edge");
-                this.button.setBounds(10, 100, 130, 20);
+                this.button.setBounds(10, 150, 130, 20);
                 button.addActionListener(this);
                 this.add(button);
                 this.setResizable(false); //frame can not be resized
+
+                if(nodeSrc.length() == 0 || nodeDest.length() == 0 || weight.length() == 0){
+                    gaMain.init(gaCopy.copy());
+                    repaint();
+                }
+                else{
+                    this.gaMain.getGraph().connect(src, dest, w);
+                    repaint();
+                }
 
                 this.setVisible(true);
                 repaint();
@@ -231,55 +273,114 @@ public class GUI {
             }
 
             else if(e.getSource() == addNode){
-                label1 = new JLabel("Enter X:");
+                label1 = new JLabel("Enter Node ID:");
                 label1.setBounds(10, 10, 50, 20);
                 this.add(label1);
-
 
                 xValue = new JTextField();
                 this.xValue.setBounds(60, 10, 50, 20);
                 this.add(xValue);
-                String nodeX = xValue.getText();
-                int x = Integer.parseInt(nodeX);
+                String ID = xValue.getText();
+                int id = Integer.parseInt(ID);
 
-                label2 = new JLabel("Enter Y:");
+                label2 = new JLabel("Enter X:");
                 label2.setBounds(10, 50, 50, 20);
                 this.add(label2);
 
 
+                xValue = new JTextField();
+                this.xValue.setBounds(60, 50, 50, 20);
+                this.add(xValue);
+                String nodeX = xValue.getText();
+                int x = Integer.parseInt(nodeX);
+
+                label3 = new JLabel("Enter Y:");
+                label3.setBounds(10, 90, 50, 20);
+                this.add(label3);
+
+
                 yValue = new JTextField();
-                this.yValue.setBounds(60, 50, 50, 20);
+                this.yValue.setBounds(60, 90, 50, 20);
                 this.add(yValue);
                 String nodeY = yValue.getText();
                 int y = Integer.parseInt(nodeY);
 
+
                 button = new JButton();
                 button.setText("Add Node");
-                this.button.setBounds(10, 100, 130, 20);
+                this.button.setBounds(10, 200, 130, 20);
                 button.addActionListener(this);
                 this.add(button);
                 this.setResizable(false); //frame can not be resized
+
+
+                if(nodeX.length() == 0 || nodeY.length() == 0 || ID.length() == 0){
+                    gaMain.init(gaCopy.copy());
+                    repaint();
+                }
+                else{
+                    Geo g = new Geo(x, y, 0);
+                    NodeData node = new Node(id, 0, 0, g);
+                    this.gaMain.getGraph().addNode(node);
+                    repaint();
+                }
 
                 this.setVisible(true);
                 repaint();
             }
 
             else if(e.getSource() == sp){
+                label1 = new JLabel("Enter First Node:");
+                label1.setBounds(10, 10, 100, 20);
+                this.add(label1);
 
+
+                firstNode = new JTextField();
+                this.firstNode.setBounds(130, 10, 50, 20);
+                this.add(firstNode);
+                String nodeSrc = firstNode.getText();
+                int src = Integer.parseInt(nodeSrc);
+
+                label2 = new JLabel("Enter Second Node:");
+                label2.setBounds(10, 50, 130, 20);
+                this.add(label2);
+
+
+                secondNode = new JTextField();
+                this.secondNode.setBounds(130, 50, 50, 20);
+                this.add(secondNode);
+                String nodeDest = secondNode.getText();
+                int dest = Integer.parseInt(nodeDest);
+
+                if(nodeSrc.length() == 0 || nodeDest.length() == 0){
+                    shortestPath = null;
+                    repaint();
+                }
+                else{
+                    shortestPath = (ArrayList<NodeData>) gaMain.shortestPath(src, dest);
+                    repaint();
+                }
+
+                this.setVisible(true);
+                repaint();
             }
 
             else if(e.getSource() == center){
+                NodeData center = gaMain.center();
+                this.graphCenter = center;
+                this.setVisible(true);
+                repaint();
 
             }
 
             else if(e.getSource() == connected){
             if(gaMain.isConnected()){
-                label1 = new JLabel("The graph is connected");
+                label1 = new JLabel("The graph is connected!");
                 label1.setBounds(10, 10, 100, 20);
                 this.add(label1);
             }
             else {
-                label1 = new JLabel("The graph is NOT connected");
+                label1 = new JLabel("The graph is NOT connected!");
                 label1.setBounds(10, 10, 100, 20);
                 this.add(label1);
             }
