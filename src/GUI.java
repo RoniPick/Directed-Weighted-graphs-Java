@@ -18,7 +18,7 @@ public class GUI extends JFrame implements ActionListener{
         new GUI(g);
     }
 
-//    public class MyFrame  {
+//    public class Gui.MyFrame  {
         JMenuBar menu ; //for the menu bar
         JMenu file;
         JMenu edit;
@@ -100,7 +100,6 @@ public class GUI extends JFrame implements ActionListener{
             sp.addActionListener(this); center.addActionListener(this); addNode.addActionListener(this);
             addEdge.addActionListener(this); removeEdge.addActionListener(this); removeNode.addActionListener(this);
             connected.addActionListener(this); exit.addActionListener(this);
-
             file.add(save); file.add(load); file.add(exit);
             algorithms.add(sp); algorithms.add(center); algorithms.add(connected);
             edit.add(addNode); edit.add(addEdge);edit.add(removeNode); edit.add(removeEdge);
@@ -440,7 +439,7 @@ public class GUI extends JFrame implements ActionListener{
                  graphics2D.draw(new Line2D.Double((int)xSrc, (int)ySrc, (int)xDest, (int)yDest));
 
                  drawArrowLine((Graphics2D) g,(int)xSrc, (int)ySrc, (int)xDest, (int)yDest);
-                 graphics2D.dispose();
+                 //graphics2D.dispose();
 
              }
 
