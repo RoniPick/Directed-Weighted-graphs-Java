@@ -168,6 +168,13 @@ public class GUI extends JFrame implements ActionListener{
                 this.secondNode.setBounds(130, 50, 50, 20);
                 this.add(secondNode);
                 String nodeDest = secondNode.getText();
+                button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent evt) {
+                        String name = JOptionPane.showInputDialog(getContentPane(),
+                                "What is your name?", null);
+                    }
+                });
 
                 button = new JButton();
                 button.setText("Remove edge");
