@@ -26,7 +26,8 @@ in every node we created 2 linkedlists of integers: one represents the id of all
 
 - **Graph class:** This class implements the interface of DirectedWeightedGraph. each graph has a counter (counter) that update everytime we chang something in the graph, second counter (itercounter) saves the last iterate MC data in order to compare between the iterates, a 2 collections in the form of hash map: the first (nodes) for keeping the nodes of the graph <integer,NodeData> nodes , the second (edges) for keeping the edges of the graphan. in our edges HashMap we used an HashMap that has an inner hashmap. the first key is the id of the source node. for everry key we create a HashMap that contains the key - the id of the destination node and the value is the Edge from the source to the destination:<integer,Hashmap<integer,Edgedata>>.
 The class have functions such as: changes in the graph (add/remove a node/edge), checking if there is an edge between two nodes etc..
-**Hash Map:** In the hash map data structure, each member in the collection has a unique key, in this way i can access the member, add an member or delete an member with an O(1). Hence, I chose this data structure so that graph changes would be made quickly, even when it comes to a graph with lots of vertices.
+
+ **Hash Map:** In the hash map data structure, each member in the collection has a unique key, in this way i can access the member, add an member or delete an member with an O(1). Hence, I chose this data structure so that graph changes would be made quickly, even when it comes to a graph with lots of vertices.
  
  for more information about graph: [HashMap](https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html)
  
