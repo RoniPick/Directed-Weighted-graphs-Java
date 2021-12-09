@@ -130,23 +130,18 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
         @Override
         public List<NodeData> shortestPath(int src, int dest) {
             HashMap<Integer, NodeData> D = DijkstraPath(src);
-            Stack<NodeData> reverse = new Stack<>();
             List<NodeData> ans = new LinkedList<>();
             NodeData location = graph.getNode(dest);
-            while (location != null) {
+            while (location!=null) {
                 int curr = location.getKey();
-                reverse.push(graph.getNode(curr));
-                NodeData previous = D.get(curr);
-                location = previous;
-            }
-            while (!reverse.isEmpty()) {
-                ans.add(reverse.pop());
+                ans.add(0,location);
+                location = D.get(curr);
             }
             return ans;
         }
 
 
-        private HashMap<Integer, NodeData> DijkstraPath(int src) {
+        public HashMap<Integer, NodeData> DijkstraPath(int src) {
             Graph g = (Graph) copy();
             LinkedList<Integer> visited = new LinkedList<>();
             HashMap<Integer, NodeData> previous = new HashMap<>();
@@ -207,7 +202,6 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
                 Node a = (Node) nodes.next();
                 HashMap<Integer,Double> weight = DijkstraLength(a.getKey());
                 Iterator itr = weight.values().iterator();
-                int index = 0;
                 double max = 0;
                 while(itr.hasNext()) {
                     double temp = (Double) itr.next();
@@ -225,8 +219,37 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
         }
         @Override
         public List<NodeData> tsp(List<NodeData> cities) {
+        if(cities==null || cities.size()==0){
             return null;
         }
+        HashMap<Integer,Integer> route = new HashMap<>();
+        int start = cities.get(0).getKey();
+        while (cities.size()-1>0){
+            HashMap<Integer,NodeData> m = DijkstraPath(cities.remove(0).getKey());
+            if(!route.containsKey(cities.get(0).getKey())) {
+                NodeData location = graph.getNode(cities.get(0).getKey());
+                while (location != null) {
+                    int curr = location.getKey();
+                    if(m.get(curr)!=null) {
+                        route.put(m.get(curr).getKey(), curr);
+                    }
+                    location = m.get(curr);
+                }
+            }
+        }
+        List<NodeData> r = new LinkedList<>();
+            while (route.get(start)!=null){
+                int key=route.get(start);
+                NodeData n = graph.getNode(start);
+                r.add(n);
+                start=key;
+            }
+            r.add(graph.getNode(start));
+
+
+
+        return  r;}
+
 
 
         @Override

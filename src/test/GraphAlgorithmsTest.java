@@ -3,6 +3,7 @@ import api.DirectedWeightedGraph;
 import api.NodeData;
 import org.junit.jupiter.api.Test;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -115,14 +116,14 @@ class GraphAlgorithmsTest {
         assertEquals(3,ans.getKey());
         Geo g4 = new Geo(10,10,0);
         Node d = new Node(4,0,0,g4);
-        graph.addNode(d);
-        graph.connect(d.getKey(),a.getKey(),1);
-        graph.connect(d.getKey(),b.getKey(),2);
-        graph.connect(d.getKey(),c.getKey(),1.5);
-        graph.connect(a.getKey(),d.getKey(),1);
-        NodeData ans2 = g.center();
-        assertNotEquals(3,ans2.getKey());
-        assertEquals(4,ans2.getKey());
+
+        g.load("C:\\Java Projects\\Ex2_OOP\\src\\data\\G1.json");
+        NodeData n = g.center();
+        assertEquals(8,n.getKey());
+
+        g.load("C:\\Java Projects\\Ex2_OOP\\src\\data\\G2.json");
+        NodeData n2 = g.center();
+        assertEquals(0, n2.getKey());
 
 
 
@@ -130,6 +131,15 @@ class GraphAlgorithmsTest {
 
     @Test
     void tsp() {
+        g.load("C:\\Java Projects\\Ex2_OOP\\src\\data\\G1.json");
+        List<NodeData> l = new LinkedList<>();
+        l.add(g.getGraph().getNode(6));
+        l.add(g.getGraph().getNode(8));
+        l.add(g.getGraph().getNode(7));
+        l=g.tsp(l);
+        for(int i =6;i<=8;i++){
+            assertEquals(l.remove(0).getKey(),i);
+        }
     }
 
     @Test
