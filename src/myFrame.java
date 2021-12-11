@@ -5,6 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class myFrame extends JFrame implements ActionListener {
 
@@ -24,7 +26,6 @@ public class myFrame extends JFrame implements ActionListener {
     JMenuItem exit;
     JMenuItem save;
     JMenuItem load;
-//    JMenuItem pppp;
     myPanel Panel;
 
     public static void main(String[] args) {
@@ -270,7 +271,46 @@ public class myFrame extends JFrame implements ActionListener {
         sp.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String X = JOptionPane.showInputDialog(getContentPane(),
+                        "Enter Start Node ID:", null);
+                int x = (int) Double.parseDouble(X);
 
+                String Y = JOptionPane.showInputDialog(getContentPane(),
+                        "Enter End Node ID:", null);
+                int y = (int)Double.parseDouble(Y);
+
+                try {
+                    if(X.length() == 0){
+                        throw new ArithmeticException();
+                    }
+                    if(Y.length() == 0){
+                        throw new ArithmeticException();
+                    }
+                    if (x < 0) {
+                        throw new IllegalArgumentException();
+                    }
+                    if (y < 0) {
+                        throw new IllegalArgumentException();
+                    }
+                }
+                catch (IllegalArgumentException exp){
+                    JOptionPane.showMessageDialog(null, "Number must be positive");
+                }
+                catch (ArithmeticException ex){
+                    JOptionPane.showMessageDialog(null, "Please enter a number");
+                }
+
+                Panel.sp = true;
+                LinkedList<NodeData> SP = new LinkedList<NodeData>();
+                SP = (LinkedList<NodeData>) graphAlgo.shortestPath(x, y);
+                if(SP!=null){
+                    Panel.setShortestPath(SP);
+                    Panel.setShortestPathStart(x);
+                    Panel.setShortestPathEnd(y);
+                    repaint();
+                }
+
+//                repaint();
             }
         });
 

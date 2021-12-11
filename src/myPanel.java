@@ -5,7 +5,9 @@ import api.NodeData;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.Line2D;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 public class myPanel extends JPanel {
 
@@ -17,8 +19,17 @@ public class myPanel extends JPanel {
     private double maxY;
     private double minX;
     private double minY;
+
+    //for the menubar actions
     NodeData centerNode;
     boolean center=false;
+
+
+
+    LinkedList<NodeData> shortestPath;
+    int shortestPathStart;
+    int shortestPathEnd;
+    boolean sp = false;
 
 //    public myPanel(){}
 
@@ -26,6 +37,7 @@ public class myPanel extends JPanel {
         graphAlgorithms = new GraphAlgorithms();
         graphAlgorithms.init(g);
         centerNode = graphAlgorithms.center();
+        shortestPath = null;
         this.setLayout(new BorderLayout());
         this.setBackground(Color.WHITE);
         setValues(graphAlgorithms);
@@ -35,21 +47,17 @@ public class myPanel extends JPanel {
     }
 
 
-    public double getMinX() {
-        return minX;
+    public void setShortestPathStart(int shortestPathStart) {
+        this.shortestPathStart = shortestPathStart;
     }
 
-    public double getMinY() {
-        return minY;
+    public void setShortestPathEnd(int shortestPathEnd) {
+        this.shortestPathEnd = shortestPathEnd;
+    }
+    public void setShortestPath(LinkedList<NodeData> shortestPath) {
+        this.shortestPath = (LinkedList<NodeData>) graphAlgorithms.shortestPath(shortestPathStart, shortestPathEnd);
     }
 
-    public double getMaxX() {
-        return maxX;
-    }
-
-    public double getMaxY() {
-        return maxY;
-    }
 
     @Override
     protected void paintComponent(Graphics graphics){
@@ -81,7 +89,7 @@ public class myPanel extends JPanel {
             int X = (int) (x*xScale);
             int Y = (int) (y*yScale);
             graphics.setColor(Color.PINK);
-            drawNode(graphics, X + 30, Y + 30, e.getKey());
+            drawNode(graphics, X + 20, Y + 20, e.getKey());
             setVisible(true);
             Iterator<EdgeData> iterator_edge = graph.edgeIter(e.getKey());
             while (iterator_edge.hasNext()) {
@@ -90,10 +98,10 @@ public class myPanel extends JPanel {
                 double desty =(graph.getNode(edgeData.getDest()).getLocation().y() - minY);
                 int destX = (int) (destx * xScale);
                 int destY = (int) (desty * yScale);
-                int x1 = (int) (x*xScale)+30; int x2 = (int)(destx*xScale)+30; int y1 = (int) (y*yScale)+30; int y2 = (int) (desty*yScale)+30;
+                int x1 = (int) (x*xScale)+20; int x2 = (int)(destx*xScale)+20; int y1 = (int) (y*yScale)+20; int y2 = (int) (desty*yScale)+20;
                 double theta = Math.atan2(y2-y1, x2-x1); // for the arrow
                 graphics.setColor(Color.MAGENTA);
-                drawEdge(graphics, (int)X + 30, (int)Y + 30, (int)destX + 30, (int)destY + 30);
+                drawEdge(graphics, (int)X + 20, (int)Y + 20, (int)destX + 20, (int)destY + 20);
                 Graphics2D g = (Graphics2D) graphics;
                 drawArrowLine(g, theta, x2, y2);
                 setVisible(true);
@@ -102,13 +110,27 @@ public class myPanel extends JPanel {
         }
         if(center == true){
             NodeData node = graphAlgorithms.center();
-            double x1 = (centerNode.getLocation().x() - minX) * xScale + 30;
-            double y1 = (centerNode.getLocation().y() - minY) * yScale + 30;
+            double x1 = (centerNode.getLocation().x() - minX) * xScale + 20;
+            double y1 = (centerNode.getLocation().y() - minY) * yScale + 20;
             graphics.setColor(new Color(7, 79, 163));
             graphics.fillOval((int)x1-4,(int)y1-4,10,10);
             int k = centerNode.getKey();
             graphics.drawString("This is the center, ID: "+k,(int)x1 - 50 ,(int)y1 + 30);
             center = false;
+        }
+
+        if(sp == true && shortestPath != null){
+//            shortestPath = () graphAlgorithms.shortestPath(shortestPathStart, shortestPathEnd);
+            for(int i=0; i<shortestPath.size()-1; i++){
+                EdgeData temp = graphAlgorithms.getGraph().getEdge(shortestPath.get(i).getKey(), shortestPath.get(i+1).getKey());
+                double xSrc = graphAlgorithms.getGraph().getNode(temp.getSrc()).getLocation().x() - minX;
+                double ySrc = graphAlgorithms.getGraph().getNode(temp.getSrc()).getLocation().y() - minY;
+                double xDest = graphAlgorithms.getGraph().getNode(temp.getDest()).getLocation().x() - minX;
+                double yDest = graphAlgorithms.getGraph().getNode(temp.getDest()).getLocation().y() - minY;
+                graphics.setColor(new Color(118, 219, 17));
+                graphics.drawLine((int)xSrc, (int)ySrc, (int)xDest, (int)yDest);
+            }
+            sp = false;
         }
 
     }
