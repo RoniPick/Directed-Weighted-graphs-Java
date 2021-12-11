@@ -38,4 +38,8 @@ public class Ex2 {
         // ********************************
 
     }
+
+    public static void runGUI(DirectedWeightedGraphAlgorithms graph) {
+
+    }
 }

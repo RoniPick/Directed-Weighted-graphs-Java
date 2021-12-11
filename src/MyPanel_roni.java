@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class MyPanel extends JPanel implements ActionListener {
+public class MyPanel_roni extends JPanel implements ActionListener {
 
     JLabel label1;
     JLabel label2;
@@ -21,7 +21,7 @@ public class MyPanel extends JPanel implements ActionListener {
     DirectedWeightedGraphAlgorithms gaMain;
     DirectedWeightedGraphAlgorithms gaCopy;
 
-    public MyPanel(){}
+    public MyPanel_roni(){}
 
     public void removeEdge(DirectedWeightedGraphAlgorithms main, DirectedWeightedGraphAlgorithms copy){
         this.gaMain = main;

@@ -7,7 +7,7 @@ public class Node implements NodeData{
     private int id;
     private double weight;
     private int tag;
-    private Geo location;
+    private GeoLocation location;
     private LinkedList<Integer> outEdge;
     private LinkedList<Integer> inEdge;
 
@@ -20,7 +20,7 @@ public class Node implements NodeData{
         this.outEdge = new LinkedList<Integer>();
     }
 
-    public Node(int id, double weight, int tag, Geo location){ //Data constructor
+    public Node(int id, double weight, int tag, GeoLocation location){ //Data constructor
         this.id = id;
         this.weight = weight;
         this.tag = tag;
@@ -84,9 +84,7 @@ public class Node implements NodeData{
 
     @Override
     public void setLocation(GeoLocation p) {
-        this.location.x = p.x();
-        this.location.y = p.y();
-        this.location.z = p.z();
+        this.location=p;
     }
 
     @Override
