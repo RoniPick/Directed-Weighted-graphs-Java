@@ -1,7 +1,5 @@
-package Gui;
-
 import api.NodeData;
-
+import api.DirectedWeightedGraphAlgorithms;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,12 +18,12 @@ public class MyPanel extends JPanel implements ActionListener {
     JTextField yValue;
     ArrayList<NodeData> shortestPath;
     NodeData graphCenter;
-    GraphAlgorithms gaMain;
-    GraphAlgorithms gaCopy;
+    DirectedWeightedGraphAlgorithms gaMain;
+    DirectedWeightedGraphAlgorithms gaCopy;
 
     public MyPanel(){}
 
-    public void removeEdge(GraphAlgorithms main, GraphAlgorithms copy){
+    public void removeEdge(DirectedWeightedGraphAlgorithms main, DirectedWeightedGraphAlgorithms copy){
         this.gaMain = main;
         this.gaCopy = copy;
         label1 = new JLabel("Enter First Node:");

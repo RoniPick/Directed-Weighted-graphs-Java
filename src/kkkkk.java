@@ -1,6 +1,4 @@
-package Gui;
 import api.*;
-import Gui.MyMenuBar;
 
 import javax.swing.*;
 

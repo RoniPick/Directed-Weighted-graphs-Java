@@ -3,6 +3,8 @@ package Gui;
 import api.DirectedWeightedGraphAlgorithms;
 import api.NodeData;
 import api.DirectedWeightedGraph;
+import org.w3c.dom.Node;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -159,6 +161,7 @@ public class MyMenuBar extends JMenuBar implements ActionListener {
         }
 
         else if(e.getSource() == removeNode){
+
             label1 = new JLabel("Enter Node ID:");
             label1.setBounds(10, 10, 100, 20);
             this.add(label1);
