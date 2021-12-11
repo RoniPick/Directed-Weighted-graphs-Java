@@ -55,7 +55,7 @@ public class myPanel extends JPanel {
         this.shortestPathEnd = shortestPathEnd;
     }
     public void setShortestPath(LinkedList<NodeData> shortestPath) {
-        this.shortestPath = (LinkedList<NodeData>) graphAlgorithms.shortestPath(shortestPathStart, shortestPathEnd);
+        this.shortestPath = shortestPath;
     }
 
 
@@ -83,11 +83,11 @@ public class myPanel extends JPanel {
         while (iterator_node.hasNext()) {
             //adjusting the graph to the screen scale
             NodeData e = iterator_node.next();
-
             double x = (e.getLocation().x() - minX);
             double y = (e.getLocation().y() - minY);
             int X = (int) (x*xScale);
             int Y = (int) (y*yScale);
+
             graphics.setColor(Color.PINK);
             drawNode(graphics, X + 20, Y + 20, e.getKey());
             setVisible(true);
@@ -120,15 +120,17 @@ public class myPanel extends JPanel {
         }
 
         if(sp == true && shortestPath != null){
-//            shortestPath = () graphAlgorithms.shortestPath(shortestPathStart, shortestPathEnd);
             for(int i=0; i<shortestPath.size()-1; i++){
                 EdgeData temp = graphAlgorithms.getGraph().getEdge(shortestPath.get(i).getKey(), shortestPath.get(i+1).getKey());
-                double xSrc = graphAlgorithms.getGraph().getNode(temp.getSrc()).getLocation().x() - minX;
-                double ySrc = graphAlgorithms.getGraph().getNode(temp.getSrc()).getLocation().y() - minY;
-                double xDest = graphAlgorithms.getGraph().getNode(temp.getDest()).getLocation().x() - minX;
-                double yDest = graphAlgorithms.getGraph().getNode(temp.getDest()).getLocation().y() - minY;
+                double xSrc = (graphAlgorithms.getGraph().getNode(temp.getSrc()).getLocation().x() - minX) * xScale;
+                double ySrc = (graphAlgorithms.getGraph().getNode(temp.getSrc()).getLocation().y() - minY) * yScale;
+                double xDest = (graphAlgorithms.getGraph().getNode(temp.getDest()).getLocation().x() - minX) * xScale;
+                double yDest = (graphAlgorithms.getGraph().getNode(temp.getDest()).getLocation().y() - minY) * yScale;
                 graphics.setColor(new Color(118, 219, 17));
-                graphics.drawLine((int)xSrc, (int)ySrc, (int)xDest, (int)yDest);
+                Font f = new Font("ariel", Font.BOLD, 16);
+                graphics.setFont(f);
+                graphics.drawLine((int)xSrc + 20, (int)ySrc + 20, (int)xDest + 20, (int)yDest + 20);
+                setVisible(true);
             }
             sp = false;
         }
