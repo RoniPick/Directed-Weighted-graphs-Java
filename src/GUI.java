@@ -18,7 +18,7 @@ public class GUI extends JFrame implements ActionListener{
         new GUI(g);
     }
 
-//    public class Gui.MyFrame  {
+//    public class MyFrame  {
         JMenuBar menu ; //for the menu bar
         JMenu file;
         JMenu edit;
@@ -210,17 +210,6 @@ public class GUI extends JFrame implements ActionListener{
                 this.xValue.setBounds(60, 10, 50, 20);
                 this.add(xValue);
                 String ID = xValue.getText();
-
-    //                label2 = new JLabel("Enter Y:");
-    //                label2.setBounds(10, 50, 50, 20);
-    //                this.add(label2);
-    //
-    //
-    //                yValue = new JTextField();
-    //                this.yValue.setBounds(60, 50, 50, 20);
-    //                this.add(yValue);
-    //                String nodeY = yValue.getText();
-    //                int y = Integer.parseInt(nodeY);
 
                 button = new JButton();
                 button.setText("Remove Node");
@@ -548,6 +537,14 @@ public class GUI extends JFrame implements ActionListener{
                 NodeData temp = findMinXIterator.next();
                 if(minX > temp.getLocation().x())
                     minX = temp.getLocation().x();
+                if(maxY < temp.getLocation().y())
+                    maxY = temp.getLocation().y();
+                if(minY > temp.getLocation().y())
+                    minY = temp.getLocation().y();
+                if(maxX < temp.getLocation().y())
+                    maxX = temp.getLocation().y();
+
+
             }
 
             //finding the maximum Y value
