@@ -21,8 +21,8 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
             this.graph = new Graph();
         }
 
-        public GraphAlgorithms(Graph graph) {
-            this.graph = graph;
+        public GraphAlgorithms(DirectedWeightedGraph graph) {
+            this.graph = (Graph) graph;
         }
 
 
@@ -38,11 +38,11 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
 
         @Override
         public DirectedWeightedGraph copy() {
-            Graph g = new Graph();
-            g.setItercounter(this.graph.getItercounter());
-            g.setEdges(this.graph.getEdges());
-            g.setNodes(this.graph.getNodes());
-            g.setMC(this.graph.getMC());
+            DirectedWeightedGraph g = new Graph();
+            ((Graph) g).setItercounter(this.graph.getItercounter());
+            ((Graph) g).setEdges(this.graph.getEdges());
+            ((Graph) g).setNodes(this.graph.getNodes());
+            ((Graph) g).setMC(this.graph.getMC());
             return g;
         }
 
@@ -63,14 +63,15 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
             LinkedList<Integer> visited = new LinkedList<>(); // we save the nodes id that we visited already
             LinkedList<Integer> queue = new LinkedList(); // in the queue we will put only the nodes that we can reach to from our node.
             queue.add(n);
+            visited.add(n);
             while (!queue.isEmpty()) {
                 int temp = queue.poll();
                 Node cur = (Node) graph.getNodes().get(temp);
                 LinkedList<Integer> out = cur.getOutEdge();
                 int index = 0;
                 while (index < out.size()) {
-                    if (!visited.contains(temp)) {
-                        visited.add(temp);
+                    if (!visited.contains(out.get(index))) {
+                        visited.add(out.get(index));
                         queue.add(out.get(index));
                     }
                     index++;
@@ -82,10 +83,11 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
 
         @Override
         public double shortestPathDist(int src, int dest) {
-            if (src == dest || !this.isConnected())
-                return -1;
-            HashMap<Integer, Double> ans = DijkstraLength(src);
-            return ans.get(dest);
+            if (this.isConnected() && src != dest) {
+                HashMap<Integer, Double> ans = DijkstraLength(src);
+                return ans.get(dest);
+            }
+            return -1;
         }
 
         private HashMap<Integer, Double> DijkstraLength(int src) {
@@ -195,60 +197,53 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
         public NodeData center() {
             // we need to go through every node and search for the longest path that he have.
             // then, after we finish to search for the longest path, we will choose the minimum node from the maximum group.
-            int ans = 0;
-            double min = Double.MAX_VALUE;
-            Iterator<NodeData> nodes = graph.nodeIter();
-            while (nodes.hasNext()) {
-                Node a = (Node) nodes.next();
-                HashMap<Integer,Double> weight = DijkstraLength(a.getKey());
-                Iterator itr = weight.values().iterator();
-                double max = 0;
-                while(itr.hasNext()) {
-                    double temp = (Double) itr.next();
-                    if (temp > max)
-                        max = temp;
-                    itr.next();
+            double max, temp;
+            HashMap<NodeData, Double> ans = new HashMap<>();
+            for (NodeData first : graph.getNodes().values()) {
+                max = 0;
+                for (NodeData second : graph.getNodes().values()) {
+                    if (first.getKey() != second.getKey()) {
+                        temp = shortestPathDist(first.getKey(), second.getKey());
+                        if (max < temp)
+                            max = temp;
+                    }
                 }
-
-                if (max < min) {
-                    min = max;
-                    ans = a.getKey();
-                }
+                ans.put(first, max);
             }
-            return graph.getNode(ans);
+            return Collections.min(ans.entrySet(), Map.Entry.comparingByValue()).getKey();
         }
+
         @Override
         public List<NodeData> tsp(List<NodeData> cities) {
-        if(cities==null || cities.size()==0){
-            return null;
-        }
-        HashMap<Integer,Integer> route = new HashMap<>();
-        int start = cities.get(0).getKey();
-        while (cities.size()-1>0){
-            HashMap<Integer,NodeData> m = DijkstraPath(cities.remove(0).getKey());
-            if(!route.containsKey(cities.get(0).getKey())) {
-                NodeData location = graph.getNode(cities.get(0).getKey());
-                while (location != null) {
-                    int curr = location.getKey();
-                    if(m.get(curr)!=null) {
-                        route.put(m.get(curr).getKey(), curr);
+            if(cities==null || cities.size()==0){
+                return null;
+            }
+            HashMap<Integer,Integer> route = new HashMap<>();
+            int start = cities.get(0).getKey();
+            while (cities.size()-1>0){
+                HashMap<Integer,NodeData> map = DijkstraPath(cities.remove(0).getKey());
+                if(!route.containsKey(cities.get(0).getKey())) {
+                    NodeData location = graph.getNode(cities.get(0).getKey());
+                    while (location != null) {
+                        int curr = location.getKey();
+                        if(map.get(curr)!=null) {
+                            route.put(map.get(curr).getKey(), curr);
+                        }
+                        location = map.get(curr);
                     }
-                    location = m.get(curr);
                 }
             }
-        }
-        List<NodeData> r = new LinkedList<>();
+            List<NodeData> ans = new LinkedList<>();
             while (route.get(start)!=null){
                 int key=route.get(start);
                 NodeData n = graph.getNode(start);
-                r.add(n);
+                ans.add(n);
                 start=key;
             }
-            r.add(graph.getNode(start));
+            ans.add(graph.getNode(start));
 
-
-
-        return  r;}
+            return  ans;
+    }
 
 
 
