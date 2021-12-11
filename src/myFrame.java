@@ -307,10 +307,9 @@ public class myFrame extends JFrame implements ActionListener {
                     Panel.setShortestPath(SP);
                     Panel.setShortestPathStart(x);
                     Panel.setShortestPathEnd(y);
-                    repaint();
                 }
 
-//                repaint();
+                repaint();
             }
         });
 
