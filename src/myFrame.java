@@ -141,13 +141,13 @@ public class myFrame extends JFrame implements ActionListener {
                 int y = (int)Double.parseDouble(Y);
 
                 try{
-                    if(X.length() == 0){
+                    if(X.length() == 0 || X == null){
                         throw new ArithmeticException();
                     }
-                    if(Y.length() == 0){
+                    if(Y.length() == 0 || Y == null){
                         throw new ArithmeticException();
                     }
-                    if(ID.length() == 0) {
+                    if(ID.length() == 0 || ID == null) {
                         throw new ArithmeticException();
                     }
                     if(id<0){
@@ -206,13 +206,13 @@ public class myFrame extends JFrame implements ActionListener {
                 int w = (int)Double.parseDouble(W);
 
                 try{
-                    if(X.length() == 0){
+                    if(X.length() == 0 || X == null){
                         throw new ArithmeticException();
                     }
-                    if(Y.length() == 0){
+                    if(Y.length() == 0 || Y == null){
                         throw new ArithmeticException();
                     }
-                    if(W.length() == 0){
+                    if(W.length() == 0 || W == null){
                         throw new ArithmeticException();
                     }
                     if(x<0){
@@ -260,10 +260,10 @@ public class myFrame extends JFrame implements ActionListener {
                 int y = (int)Double.parseDouble(Y);
 
                 try {
-                    if(X.length() == 0){
+                    if(X.length() == 0 || X == null){
                         throw new ArithmeticException();
                     }
-                    if(Y.length() == 0){
+                    if(Y.length() == 0 || Y == null){
                         throw new ArithmeticException();
                     }
                     if (x < 0) {
@@ -289,8 +289,6 @@ public class myFrame extends JFrame implements ActionListener {
                 graphAlgo.getGraph().removeEdge(x, y);
                 repaint();
             }
-
-
         });
 
         removeNode.addActionListener(new ActionListener() {
@@ -301,12 +299,18 @@ public class myFrame extends JFrame implements ActionListener {
                 int id = Integer.parseInt(ID);
 
                 try {
+                    if (ID.length() == 0 || ID == null) {
+                        throw new ArithmeticException();
+                    }
                     if (id < 0) {
                         throw new IllegalArgumentException();
                     }
                     if (graphAlgo.getGraph().getNode(id) == null) {
                         throw new IndexOutOfBoundsException();
                     }
+                }
+                catch (ArithmeticException ex){
+                    JOptionPane.showMessageDialog(null, "Please enter a number");
                 }
                 catch (IllegalArgumentException exp){
                     JOptionPane.showMessageDialog(null, "Number must be positive");
@@ -332,10 +336,10 @@ public class myFrame extends JFrame implements ActionListener {
                 int y = (int)Double.parseDouble(Y);
 
                 try {
-                    if(X.length() == 0){
+                    if(X.length() == 0 || X == null){
                         throw new ArithmeticException();
                     }
-                    if(Y.length() == 0){
+                    if(Y.length() == 0 || Y == null){
                         throw new ArithmeticException();
                     }
                     if (x < 0) {
