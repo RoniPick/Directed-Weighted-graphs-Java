@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class myFrame extends JFrame implements ActionListener {
@@ -28,12 +27,12 @@ public class myFrame extends JFrame implements ActionListener {
     JMenuItem load;
     myPanel Panel;
 
-    public static void main(String[] args) {
-        GraphAlgorithms g = new GraphAlgorithms();
-        g.load("C:/Users/User/IdeaProjects/Ex2_OOP/src/data/G1.json");
-        runGUI((Graph)g.getGraph());
-    }
-    public static void runGUI(Graph gr) {
+//    public static void main(String[] args) {
+//        GraphAlgorithms g = new GraphAlgorithms();
+//        g.load("C:/Users/User/IdeaProjects/Ex2_OOP/src/data/G1.json");
+//        RunGui((Graph)g.getGraph());
+//    }
+    public static void RunGui(Graph gr) {
         new myFrame(gr);
     }
 
@@ -92,7 +91,7 @@ public class myFrame extends JFrame implements ActionListener {
                     String getPath = jf.getSelectedFile().getAbsolutePath();
                     graphAlgo.load(getPath);
                     try{
-                        runGUI((Graph) graphAlgo.getGraph());
+                        RunGui((Graph) graphAlgo.getGraph());
                         setVisible(false);
                         dispose();
 
@@ -141,6 +140,15 @@ public class myFrame extends JFrame implements ActionListener {
                 int y = (int)Double.parseDouble(Y);
 
                 try{
+                    if(X.length() == 0 || X == null){
+                        throw new ArithmeticException();
+                    }
+                    if(Y.length() == 0 || Y == null){
+                        throw new ArithmeticException();
+                    }
+                    if(ID.length() == 0 || ID == null) {
+                        throw new ArithmeticException();
+                    }
                     if(id<0){
                         throw new IllegalArgumentException();
                     }
@@ -156,12 +164,14 @@ public class myFrame extends JFrame implements ActionListener {
                     }
 
                 }
+                catch (ArithmeticException ex){
+                    JOptionPane.showMessageDialog(null, "Please enter a number");
+                }
                 catch (IllegalArgumentException exp){
                     JOptionPane.showMessageDialog(null, "Number must be positive");
                 }
                 catch (Exception ex){
                     JOptionPane.showMessageDialog(null, "This ID Node already exist");
-
                 }
 
                 Geo geo = new Geo();
@@ -169,6 +179,9 @@ public class myFrame extends JFrame implements ActionListener {
                 GeoLocation g = geo;
                 NodeData node = new Node(id, 0, 0, g);
                 graphAlgo.getGraph().addNode(node);
+//                Panel.setN(node);
+//                Panel = new myPanel((Graph) graphAlgo.getGraph());
+//                setVisible(true);
                 repaint();
 
 
@@ -180,20 +193,36 @@ public class myFrame extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String X = JOptionPane.showInputDialog(getContentPane(),
-                        "Enter First Node ID:", null);
+                        "Enter Source Node ID:", null);
                 int x = (int) Double.parseDouble(X);
 
                 String Y = JOptionPane.showInputDialog(getContentPane(),
-                        "Enter Second Node ID:", null);
+                        "Enter Destination Node ID:", null);
                 int y = (int)Double.parseDouble(Y);
 
+                String W = JOptionPane.showInputDialog(getContentPane(),
+                        "Enter Edge Weight:", null);
+                int w = (int)Double.parseDouble(W);
+
                 try{
+                    if(X.length() == 0 || X == null){
+                        throw new ArithmeticException();
+                    }
+                    if(Y.length() == 0 || Y == null){
+                        throw new ArithmeticException();
+                    }
+                    if(W.length() == 0 || W == null){
+                        throw new ArithmeticException();
+                    }
                     if(x<0){
                         throw new IllegalArgumentException();
                     }
                     if(y<0){
                         throw new IllegalArgumentException();
                     }
+                    if(w<0){
+                        throw new IllegalArgumentException();
+                    }
                     if(graphAlgo.getGraph().getNode(x) == null){
                         throw new IndexOutOfBoundsException();
                     }
@@ -201,6 +230,9 @@ public class myFrame extends JFrame implements ActionListener {
                         throw new IndexOutOfBoundsException();
                     }
 
+                }
+                catch(ArithmeticException ex){
+                    JOptionPane.showMessageDialog(null, "Please enter a number");
                 }
                 catch (IllegalArgumentException exp){
                     JOptionPane.showMessageDialog(null, "Number must be positive");
@@ -209,6 +241,9 @@ public class myFrame extends JFrame implements ActionListener {
                 catch (IndexOutOfBoundsException exp){
                     JOptionPane.showMessageDialog(null, "The Node doesn't exist");
                 }
+
+                graphAlgo.getGraph().connect(x, y, w);
+                repaint();
             }
         });
 
@@ -216,14 +251,20 @@ public class myFrame extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String X = JOptionPane.showInputDialog(getContentPane(),
-                        "Enter First Node ID:", null);
+                        "Enter Source Node ID:", null);
                 int x = (int) Double.parseDouble(X);
 
                 String Y = JOptionPane.showInputDialog(getContentPane(),
-                        "Enter Second Node ID:", null);
+                        "Enter Destination Node ID:", null);
                 int y = (int)Double.parseDouble(Y);
 
                 try {
+                    if(X.length() == 0 || X == null){
+                        throw new ArithmeticException();
+                    }
+                    if(Y.length() == 0 || Y == null){
+                        throw new ArithmeticException();
+                    }
                     if (x < 0) {
                         throw new IllegalArgumentException();
                     }
@@ -240,6 +281,12 @@ public class myFrame extends JFrame implements ActionListener {
                 catch (IndexOutOfBoundsException exp){
                     JOptionPane.showMessageDialog(null, "The Edge doesn't exist");
                 }
+                catch(ArithmeticException ex){
+                    JOptionPane.showMessageDialog(null, "Please enter a number");
+                }
+
+                graphAlgo.getGraph().removeEdge(x, y);
+                repaint();
             }
         });
 
@@ -251,12 +298,18 @@ public class myFrame extends JFrame implements ActionListener {
                 int id = Integer.parseInt(ID);
 
                 try {
+                    if (ID.length() == 0 || ID == null) {
+                        throw new ArithmeticException();
+                    }
                     if (id < 0) {
                         throw new IllegalArgumentException();
                     }
                     if (graphAlgo.getGraph().getNode(id) == null) {
                         throw new IndexOutOfBoundsException();
                     }
+                }
+                catch (ArithmeticException ex){
+                    JOptionPane.showMessageDialog(null, "Please enter a number");
                 }
                 catch (IllegalArgumentException exp){
                     JOptionPane.showMessageDialog(null, "Number must be positive");
@@ -265,6 +318,8 @@ public class myFrame extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Node doesn't exist");
 
                 }
+//                graphAlgo.getGraph().removeNode(id);
+//                repaint();
             }
         });
 
@@ -280,10 +335,10 @@ public class myFrame extends JFrame implements ActionListener {
                 int y = (int)Double.parseDouble(Y);
 
                 try {
-                    if(X.length() == 0){
+                    if(X.length() == 0 || X == null){
                         throw new ArithmeticException();
                     }
-                    if(Y.length() == 0){
+                    if(Y.length() == 0 || Y == null){
                         throw new ArithmeticException();
                     }
                     if (x < 0) {

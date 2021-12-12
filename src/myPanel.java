@@ -23,6 +23,8 @@ public class myPanel extends JPanel {
     //for the menubar actions
     NodeData centerNode;
     boolean center=false;
+    boolean drawNode;
+    NodeData n;
 
 
 
@@ -38,6 +40,7 @@ public class myPanel extends JPanel {
         graphAlgorithms.init(g);
         centerNode = graphAlgorithms.center();
         shortestPath = null;
+        n = new Node();
         this.setLayout(new BorderLayout());
         this.setBackground(Color.WHITE);
         setValues(graphAlgorithms);
@@ -56,6 +59,10 @@ public class myPanel extends JPanel {
     }
     public void setShortestPath(LinkedList<NodeData> shortestPath) {
         this.shortestPath = shortestPath;
+    }
+
+    public void setN(NodeData n) {
+        this.n = n;
     }
 
 
@@ -134,6 +141,9 @@ public class myPanel extends JPanel {
             }
             sp = false;
         }
+//        if(drawNode == true){
+//            drawNode(graphics, (int)((n.getLocation().x()- minX) * xScale + 20), (int)((n.getLocation().y()- minY) * xScale + 20), n.getKey());
+//        }
 
     }
 
@@ -162,7 +172,8 @@ public class myPanel extends JPanel {
 
     public void drawNode(Graphics graphics, int x, int y, int key) {
         graphics.fillOval(x-4,y-4,10,10);
-        graphics.drawString(""+key,x,y);
+        graphics.setColor(new Color(134, 28, 81));
+        graphics.drawString(""+key,x,y+15);
     }
 
     public void drawEdge(Graphics graphics,int xsrc, int ysrc, int xdest, int ydest){
