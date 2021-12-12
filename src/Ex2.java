@@ -11,9 +11,12 @@ public class Ex2 {
      * @return
      */
     public static DirectedWeightedGraph getGrapg(String json_file) {
-        DirectedWeightedGraph ans = null;
-        ans=getGrapgAlgo(json_file).getGraph();
-        return ans;
+        DirectedWeightedGraph ans = new Graph();
+        GraphAlgorithms graphAlgorithms = new GraphAlgorithms();
+        graphAlgorithms.init(ans);
+        graphAlgorithms.load(json_file);
+//        ans=getGrapgAlgo(json_file).getGraph();
+        return graphAlgorithms.getGraph();
     }
     /**
      * This static function will be used to test your implementation
@@ -21,10 +24,11 @@ public class Ex2 {
      * @return
      */
     public static DirectedWeightedGraphAlgorithms getGrapgAlgo(String json_file) {
-        DirectedWeightedGraphAlgorithms ans = null;
-        ans=new GraphAlgorithms();
-        ans.load(json_file);
-        return ans;
+        DirectedWeightedGraph ans = new Graph();
+        GraphAlgorithms graphAlgorithms = new GraphAlgorithms();
+        graphAlgorithms.init(ans);
+        graphAlgorithms.load(json_file);
+        return graphAlgorithms;
     }
     /**
      * This static function will run your GUI using the json fime.
@@ -33,13 +37,7 @@ public class Ex2 {
      */
     public static void runGUI(String json_file) {
         DirectedWeightedGraphAlgorithms alg = getGrapgAlgo(json_file);
-        // ****** Add your code here ******
-        //
-        // ********************************
-
+        myFrame.RunGui((Graph)alg.getGraph());
     }
 
-    public static void runGUI(DirectedWeightedGraphAlgorithms graph) {
-
-    }
 }
