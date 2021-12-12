@@ -1,4 +1,6 @@
 out/
+.idea/
 *.iml
 *.json
 src/data/
+libs
