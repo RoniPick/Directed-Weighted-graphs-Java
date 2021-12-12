@@ -70,16 +70,28 @@ public class myPanel extends JPanel {
         int _height= HEIGHT;
         drawGraph(graphics, _width, _height);
         setVisible(true);
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> a676a4897d4b3e44e4da64206210556cbf5e2bee
     }
 
     public void drawGraph(Graphics graphics, int width, int height) {
         graph = (Graph) graphAlgorithms.getGraph();
         Iterator<NodeData> iterator_node = graph.nodeIter();
+<<<<<<< HEAD
 
         double xAbs = Math.abs(minX - maxX);
         double yAbs = Math.abs(minY - maxY);
         double xScale = (width / xAbs);
         double yScale = (height / yAbs);
+=======
+        double xAbs = Math.abs(minX - maxX);
+        double yAbs = Math.abs(minY - maxY);
+        double xScale = (width / xAbs) * 0.75;
+        double yScale = (height / yAbs) * 0.75;
+>>>>>>> a676a4897d4b3e44e4da64206210556cbf5e2bee
 
         while (iterator_node.hasNext()) {
             //adjusting the graph to the screen scale
@@ -91,7 +103,11 @@ public class myPanel extends JPanel {
 
             graphics.setColor(Color.PINK);
             drawNode(graphics, X + 20, Y + 20, e.getKey());
+<<<<<<< HEAD
 //            setVisible(true);
+=======
+            setVisible(true);
+>>>>>>> a676a4897d4b3e44e4da64206210556cbf5e2bee
             Iterator<EdgeData> iterator_edge = graph.edgeIter(e.getKey());
             if(iterator_edge == null)
                 continue;
@@ -145,7 +161,10 @@ public class myPanel extends JPanel {
 
     //function that help to find the min and max values of x & y in order to set the scale
     public void setValues(GraphAlgorithms g) {
+<<<<<<< HEAD
         System.out.println(minX + " " + minY + " -- " + maxX + " " + maxY);
+=======
+>>>>>>> a676a4897d4b3e44e4da64206210556cbf5e2bee
         this.graphAlgorithms=g;
         maxX = Integer.MIN_VALUE;
         maxY = Integer.MIN_VALUE;
@@ -163,8 +182,13 @@ public class myPanel extends JPanel {
                 minX = temp.getLocation().x();
             if (minY > temp.getLocation().y())
                 minY = temp.getLocation().y();
+<<<<<<< HEAD
         }
         System.out.println(minX + " " + minY + " -- " + maxX + " " + maxY);
+=======
+
+        }
+>>>>>>> a676a4897d4b3e44e4da64206210556cbf5e2bee
     }
 
     public void drawNode(Graphics graphics, int x, int y, int key) {
@@ -188,6 +212,10 @@ public class myPanel extends JPanel {
         x = x2 - arrow * Math.cos(theta - phi);
         y = y2 - arrow * Math.sin(theta - phi);
         g.draw(new Line2D.Double(x2, y2, x, y));
+<<<<<<< HEAD
+=======
+
+>>>>>>> a676a4897d4b3e44e4da64206210556cbf5e2bee
     }
 
 }

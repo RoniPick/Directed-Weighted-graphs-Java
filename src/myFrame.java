@@ -138,11 +138,19 @@ public class myFrame extends JFrame implements ActionListener {
 
                 String X = JOptionPane.showInputDialog(getContentPane(),
                         "Enter X:", null);
+<<<<<<< HEAD
                 double x = Double.parseDouble(X);
 
                 String Y = JOptionPane.showInputDialog(getContentPane(),
                         "Enter Y:", null);
                 double y = Double.parseDouble(Y);
+=======
+                int x = (int) Double.parseDouble(X);
+
+                String Y = JOptionPane.showInputDialog(getContentPane(),
+                        "Enter Y:", null);
+                int y = (int)Double.parseDouble(Y);
+>>>>>>> a676a4897d4b3e44e4da64206210556cbf5e2bee
 
                 try{
                     if(X.length() == 0 || X == null){
@@ -183,10 +191,18 @@ public class myFrame extends JFrame implements ActionListener {
                 geo.setX(x); geo.setY(y); geo.setZ(0.0);
                 GeoLocation g = geo;
                 NodeData node = new Node(id, 0, 0, g);
+<<<<<<< HEAD
                 System.out.println(node.getLocation().x() + " " + node.getLocation().y());
                 graphAlgo.getGraph().addNode(node);
                 repaint();
             }
+=======
+                graphAlgo.getGraph().addNode(node);
+                repaint();
+
+            }
+
+>>>>>>> a676a4897d4b3e44e4da64206210556cbf5e2bee
         })
         ;
 
@@ -397,6 +413,10 @@ public class myFrame extends JFrame implements ActionListener {
         });
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a676a4897d4b3e44e4da64206210556cbf5e2bee
     @Override
     public void actionPerformed(ActionEvent e) {
 

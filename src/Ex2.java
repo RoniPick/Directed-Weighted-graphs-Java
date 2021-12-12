@@ -38,6 +38,7 @@ public class Ex2 {
     public static void runGUI(String json_file) {
         DirectedWeightedGraphAlgorithms alg = getGrapgAlgo(json_file);
         myFrame.RunGui((Graph)alg.getGraph());
+<<<<<<< HEAD
     }
 
     public static void main(String[] args) {
@@ -47,4 +48,16 @@ public class Ex2 {
         runGUI("C:\\Java Projects\\Ex2_OOP\\src\\data\\G1.json");
     }
 
+=======
+    }
+
+    public static void main(String[] args) {
+        GraphAlgorithms g = new GraphAlgorithms();
+        g.load("C:/Users/User/IdeaProjects/Ex2_OOP/src/data/G1.json");
+//        runGUI((Graph)g.getGraph());
+        runGUI("C:/Users/User/IdeaProjects/Ex2_OOP/src/data/G1.json");
+
+    }
+
+>>>>>>> a676a4897d4b3e44e4da64206210556cbf5e2bee
 }

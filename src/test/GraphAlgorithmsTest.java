@@ -167,6 +167,9 @@ class GraphAlgorithmsTest {
         NodeData ans = g.center();
         assertEquals(3,ans.getKey());
 
+        Geo g4 = new Geo(10,10,0);
+        Node d = new Node(4,0,0,g4);
+
         g.load("C:\\Java Projects\\Ex2_OOP\\src\\data\\G1.json");
         NodeData n = g.center();
         assertEquals(8,n.getKey());
@@ -174,6 +177,7 @@ class GraphAlgorithmsTest {
         g.load("C:\\Java Projects\\Ex2_OOP\\src\\data\\G2.json");
         NodeData n2 = g.center();
         assertEquals(0, n2.getKey());
+
 
 //        g.load("C://Java Projects//Ex2_OOP//src//data//1000.json");
 //        NodeData n3 = g.center();
