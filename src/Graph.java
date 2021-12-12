@@ -36,18 +36,6 @@ public class Graph implements DirectedWeightedGraph {
         nodes = new HashMap<Integer, NodeData>();
         edges = new HashMap<Integer, HashMap<Integer, EdgeData>>();
 
-//        for(Integer i: graph.getNodes().keySet()){
-//            nodes.put(graph.getNodes().get(i).getKey(), graph.getNodes().get(i));
-//        }
-//
-//        for(Integer i: graph.getEdges().keySet()){
-//            for(Integer j:graph.getEdges().get(i).keySet())
-//            {
-//                HashMap<Integer, Edge> edge = new HashMap<>();
-//                edge.put(j,graph.getEdges().get(i).get(j));
-//                edges.put(i,edge);
-//            }
-//        }
     }
 
     public HashMap<Integer, HashMap<Integer, EdgeData>> getEdges() {
