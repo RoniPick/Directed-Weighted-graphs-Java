@@ -180,17 +180,11 @@ public class myFrame extends JFrame implements ActionListener {
                 }
 
                 Geo geo = new Geo();
-//                double xAbs = Math.abs(Panel.getMinX() - Panel.getMaxX());
-//                double yAbs = Math.abs(Panel.getMinY() - Panel.getMaxY());
-//                double xScale = (Panel.getWIDTH() / xAbs) * 0.4;
-//                double yScale = (Panel.getHEIGHT() / yAbs) * 0.4;
                 geo.setX(x); geo.setY(y); geo.setZ(0.0);
                 GeoLocation g = geo;
                 NodeData node = new Node(id, 0, 0, g);
                 graphAlgo.getGraph().addNode(node);
                 repaint();
-
-
 
             }
 
