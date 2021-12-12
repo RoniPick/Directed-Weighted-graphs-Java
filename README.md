@@ -52,6 +52,17 @@ The class have functions such as: changes in the graph (add/remove a node/edge),
 - **JsonToNodes class:** This class is using to converts an node object to Json String and vice versa.
 - **JsonToGraph class:** This class is using to converts an node object to Json String and vice versa.
 
+![Ex2_](https://user-images.githubusercontent.com/93771702/145724966-e119c7c5-aa32-42f7-94f2-22a226ceb63b.png)
+
+## _Results Table:_
+
+| Number of Nodes/ Function |  Isconnected   |  ShortestPath  |   shortestPathDist   |   Center   |      Tsp     |
+|---------------------------|----------------|----------------|----------------------|------------|--------------|
+|     1,000 Nodes           |   13-15 sec    |  13-14 sec     |  400-500 ms          |            |  500-550 ms  |
+|     10,000 Nodes          |                |                |                      |            |              |
+|     100,000 Nodes         |                |                |                      |            |              |
+|     1,000,000 Nodes       |                |                |                      |            |              |
+
 ## _How to run:_
 In order to run the program, all you need to do is to 
 
