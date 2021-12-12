@@ -15,7 +15,6 @@ public class Graph implements DirectedWeightedGraph {
     private HashMap<Integer, NodeData> nodes; //hash map for the nodes - Integer for the key, return the info of the node
     private int itercounter = 0; // saves the last iterate MC data in order to compare between the iterates
 
-
     public Graph() { //empty constructor
         this.counter = 0;
         this.edges = new HashMap<Integer, HashMap<Integer, EdgeData>>(); // we can delete the info inside the <>

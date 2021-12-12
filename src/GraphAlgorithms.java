@@ -282,7 +282,6 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
             }.getType());
             Graph g = gtj.toGraph();
             this.init(g);
-            // try
 
             flag = true;
         } catch (FileNotFoundException e) {

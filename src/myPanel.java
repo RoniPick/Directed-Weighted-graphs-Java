@@ -163,7 +163,6 @@ public class myPanel extends JPanel {
                 minX = temp.getLocation().x();
             if (minY > temp.getLocation().y())
                 minY = temp.getLocation().y();
-
         }
         System.out.println(minX + " " + minY + " -- " + maxX + " " + maxY);
     }
@@ -189,7 +188,6 @@ public class myPanel extends JPanel {
         x = x2 - arrow * Math.cos(theta - phi);
         y = y2 - arrow * Math.sin(theta - phi);
         g.draw(new Line2D.Double(x2, y2, x, y));
-
     }
 
 }

@@ -43,7 +43,7 @@ public class JsonToGraph {
         this.Edges = new ArrayList<>();
         this.Nodes = new ArrayList<>();
         Iterator<NodeData> it = g.nodeIter();
-        while (it.hasNext()) {
+        while (it.hasNext()){
             NodeData n = it.next();
             this.Nodes.add(new JsonToNodes("", -1).fromNode(n));
         }

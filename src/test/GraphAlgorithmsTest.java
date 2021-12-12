@@ -12,8 +12,7 @@ class GraphAlgorithmsTest {
     GraphAlgorithms g = new GraphAlgorithms();
 
     @Test
-    void init() {
-    }
+    void init() {}
 
     @Test
     void getGraph() {

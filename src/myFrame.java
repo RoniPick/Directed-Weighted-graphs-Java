@@ -185,11 +185,8 @@ public class myFrame extends JFrame implements ActionListener {
                 NodeData node = new Node(id, 0, 0, g);
                 System.out.println(node.getLocation().x() + " " + node.getLocation().y());
                 graphAlgo.getGraph().addNode(node);
-//                System.out.println(graphAlgo.getGraph().getNode(id));
                 repaint();
-
             }
-
         })
         ;
 
@@ -399,7 +396,6 @@ public class myFrame extends JFrame implements ActionListener {
             }
         });
     }
-
 
     @Override
     public void actionPerformed(ActionEvent e) {

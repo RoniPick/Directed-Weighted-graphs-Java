@@ -6,7 +6,6 @@ public class JsonToEdges {
     private double w;
     private int dest;
 
-
     public JsonToEdges(int src, double w, int dest){
         this.src = src;
         this.w = w;

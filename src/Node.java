@@ -51,7 +51,6 @@ public class Node implements NodeData{
             int temp = this.inEdge.indexOf(node.id);
             this.inEdge.remove(temp);
         }
-
     }
 
     public void removeOut(Node node){
