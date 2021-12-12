@@ -1,3 +1,4 @@
+
 import api.DirectedWeightedGraph;
 import api.NodeData;
 import org.junit.jupiter.api.Test;
@@ -45,10 +46,10 @@ class GraphAlgorithmsTest {
         graph.connect(d.getKey(),b.getKey(),4);
         assertFalse(g.isConnected());
 
-//        g.load("C:\\Java Projects\\Ex2_OOP\\src\\data\\1000.json");
+//        g.load("C:\\Java Projects\\Ex2_OOP\\src\\data\\1000Nodes.json");
 //        assertTrue(g.isConnected());
 //
-//        g.load("C:\\Java Projects\\Ex2_OOP\\src\\data\\10000.json");
+//        g.load("C:\\Java Projects\\Ex2_OOP\\src\\data\\10000Nodes.json");
 //        assertTrue(g.isConnected());
 
         g.load("C:\\Java Projects\\Ex2_OOP\\src\\data\\G1.json");
@@ -190,7 +191,7 @@ class GraphAlgorithmsTest {
 
     @Test
     void tsp() {
-        g.load("C://Java Projects//Ex2_OOP//src//data//G1.json");
+        g.load("C:\\Java Projects\\Ex2_OOP\\src\\data\\G1.json");
         List<NodeData> l = new LinkedList<>();
         l.add(g.getGraph().getNode(6));
         l.add(g.getGraph().getNode(8));

@@ -59,6 +59,8 @@ class Node {
  - double weight
  - int tag
  - Geo location
+ - LinkedList <Integer> inEdge
+ - LinkedList <Integer> outEdge
 
 }
 
@@ -89,6 +91,13 @@ class GraphAlgorithms{
 - Boolean relax(Edge e)
 
 }
+class JsonToEdges {}
+class JsonToNodes{}
+class JsonToGraph{}
+
+class myFrame << (G,blue) >>{}
+
+class myPanel<< (G,blue) >> {}
 
 class Ex2 {
 DirectedWeightedGraph getGrapg(String json_file)
@@ -96,17 +105,27 @@ DirectedWeightedGraphAlgorithms getGrapgAlgo(String json_file)
 void runGUI(String json_file)
 }
 
-Ex2 -down-> GraphAlgorithms
 GraphAlgorithms -down-> DirectedWeightedGraphAlgorithms
 GraphAlgorithms -left-> Graph
 Graph -down-> DirectedWeightedGraph
+Ex2 -left-> GraphAlgorithms
+myFrame -down-> Ex2
+myPanel -down-> Ex2
+GraphAlgorithms -up-> JsonToEdges
+GraphAlgorithms -up->  JsonToNodes
+GraphAlgorithms -up->  JsonToGraph
 Graph -left-> Edge
 Edge -down-> EdgeData
-Graph -left-> Node
-Node -down-> NodeData
+Graph -up-> Node
+Node -up-> NodeData
 Node -left-> Geo
-Geo -down-> GeoLocation
+Geo -left-> GeoLocation
 
 
+
+
+
+
+@enduml
 
 @enduml

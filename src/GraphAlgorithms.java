@@ -10,7 +10,9 @@ import java.util.*;
 import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import org.junit.jupiter.api.parallel.Resources;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
     private Graph graph;
@@ -19,8 +21,8 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
         this.graph = new Graph();
     }
 
-    public GraphAlgorithms(Graph graph) {
-        this.graph = graph;
+    public GraphAlgorithms(DirectedWeightedGraph graph) {
+        this.graph = (Graph) graph;
     }
 
 
@@ -36,21 +38,19 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
 
     @Override
     public DirectedWeightedGraph copy() {
-        Graph g = new Graph();
-        g.setItercounter(this.graph.getItercounter());
-        g.setEdges(this.graph.getEdges());
-        g.setNodes(this.graph.getNodes());
-        g.setMC(this.graph.getMC());
+        DirectedWeightedGraph g = new Graph();
+        ((Graph) g).setItercounter(this.graph.getItercounter());
+        ((Graph) g).setEdges(this.graph.getEdges());
+        ((Graph) g).setNodes(this.graph.getNodes());
+        ((Graph) g).setMC(this.graph.getMC());
         return g;
     }
 
     @Override
     public boolean isConnected() {
-        Iterator nodesIterator = graph.getNodes().entrySet().iterator();
-
-        while (nodesIterator.hasNext()) {
-            HashMap.Entry element = (HashMap.Entry) nodesIterator.next();
-            int curr = ((int) element.getKey());
+        Iterator <NodeData> nodesIterator = this.graph.nodeIter();
+        while(nodesIterator.hasNext()){
+            int curr = nodesIterator.next().getKey();
             if (!BFS(curr))
                 return false;
         }
@@ -97,6 +97,7 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
         while (nodes.hasNext()) {
             Node a = (Node) nodes.next();
             a.setWeight(Double.MAX_VALUE);
+            a.setTag(0);
         }
 
         Node first = (Node) g.getNodes().get(src);
@@ -115,10 +116,11 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
                         else {
                             distance.replace(temp.getKey(), temp.getWeight());
                         }
-                        if (!visited.contains(g.getNode(out.get(index)).getKey())) {
-                            visited.add(g.getNode(out.get(index)).getKey());
+                        if(g.getNode(out.get(index)).getTag()==0){
+                            g.getNode(out.get(index)).setTag(1);
                             neighbours.add((Node) g.getNode(out.get(index)));
                         }
+
                     }
                 }
                 index++;
@@ -150,6 +152,7 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
         while (nodes.hasNext()) {
             Node a = (Node) nodes.next();
             a.setWeight(Double.MAX_VALUE);
+            a.setTag(0);
         }
 
         Node first = (Node) g.getNodes().get(src);
@@ -168,8 +171,8 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
                         else {
                             previous.replace(temp.getKey(), curr);
                         }
-                        if (!visited.contains(g.getNode(out.get(index)).getKey())) {
-                            visited.add(g.getNode(out.get(index)).getKey());
+                        if(g.getNode(out.get(index)).getTag()==0) {
+                            g.getNode(out.get(index)).setTag(1);
                             neighbours.add((Node) g.getNode(out.get(index)));
                         }
                     }
@@ -240,7 +243,8 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
         }
         ans.add(graph.getNode(start));
 
-        return  ans;}
+        return  ans;
+    }
 
 
 
@@ -278,12 +282,15 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
             }.getType());
             Graph g = gtj.toGraph();
             this.init(g);
+            // try
 
             flag = true;
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             flag = false;
         }
+
+
         return flag;
     }
 }

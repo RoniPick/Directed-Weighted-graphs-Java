@@ -138,11 +138,11 @@ public class myFrame extends JFrame implements ActionListener {
 
                 String X = JOptionPane.showInputDialog(getContentPane(),
                         "Enter X:", null);
-                int x = (int) Double.parseDouble(X);
+                double x = Double.parseDouble(X);
 
                 String Y = JOptionPane.showInputDialog(getContentPane(),
                         "Enter Y:", null);
-                int y = (int)Double.parseDouble(Y);
+                double y = Double.parseDouble(Y);
 
                 try{
                     if(X.length() == 0 || X == null){
@@ -183,7 +183,9 @@ public class myFrame extends JFrame implements ActionListener {
                 geo.setX(x); geo.setY(y); geo.setZ(0.0);
                 GeoLocation g = geo;
                 NodeData node = new Node(id, 0, 0, g);
+                System.out.println(node.getLocation().x() + " " + node.getLocation().y());
                 graphAlgo.getGraph().addNode(node);
+//                System.out.println(graphAlgo.getGraph().getNode(id));
                 repaint();
 
             }

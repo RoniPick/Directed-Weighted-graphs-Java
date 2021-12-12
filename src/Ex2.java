@@ -42,9 +42,9 @@ public class Ex2 {
 
     public static void main(String[] args) {
         GraphAlgorithms g = new GraphAlgorithms();
-        g.load("C:/Users/User/IdeaProjects/Ex2_OOP/src/data/G1.json");
+        g.load("C:\\Java Projects\\Ex2_OOP\\src\\data\\G1.json");
 //        runGUI((Graph)g.getGraph());
-        runGUI("C:/Users/User/IdeaProjects/Ex2_OOP/src/data/G1.json");
+        runGUI("C:\\Java Projects\\Ex2_OOP\\src\\data\\G1.json");
 
     }
 

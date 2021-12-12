@@ -70,17 +70,16 @@ public class myPanel extends JPanel {
         int _height= HEIGHT;
         drawGraph(graphics, _width, _height);
         setVisible(true);
-
-
     }
 
     public void drawGraph(Graphics graphics, int width, int height) {
         graph = (Graph) graphAlgorithms.getGraph();
         Iterator<NodeData> iterator_node = graph.nodeIter();
+
         double xAbs = Math.abs(minX - maxX);
         double yAbs = Math.abs(minY - maxY);
-        double xScale = (width / xAbs) * 0.75;
-        double yScale = (height / yAbs) * 0.75;
+        double xScale = (width / xAbs);
+        double yScale = (height / yAbs);
 
         while (iterator_node.hasNext()) {
             //adjusting the graph to the screen scale
@@ -92,7 +91,7 @@ public class myPanel extends JPanel {
 
             graphics.setColor(Color.PINK);
             drawNode(graphics, X + 20, Y + 20, e.getKey());
-            setVisible(true);
+//            setVisible(true);
             Iterator<EdgeData> iterator_edge = graph.edgeIter(e.getKey());
             if(iterator_edge == null)
                 continue;
@@ -146,6 +145,7 @@ public class myPanel extends JPanel {
 
     //function that help to find the min and max values of x & y in order to set the scale
     public void setValues(GraphAlgorithms g) {
+        System.out.println(minX + " " + minY + " -- " + maxX + " " + maxY);
         this.graphAlgorithms=g;
         maxX = Integer.MIN_VALUE;
         maxY = Integer.MIN_VALUE;
@@ -165,6 +165,7 @@ public class myPanel extends JPanel {
                 minY = temp.getLocation().y();
 
         }
+        System.out.println(minX + " " + minY + " -- " + maxX + " " + maxY);
     }
 
     public void drawNode(Graphics graphics, int x, int y, int key) {
