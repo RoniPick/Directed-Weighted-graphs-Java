@@ -13,8 +13,8 @@ public class myPanel extends JPanel {
 
     Graph graph;
     GraphAlgorithms graphAlgorithms;
-    private int WIDTH = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-    private int HEIGHT =(int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+    private int WIDTH = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2;
+    private int HEIGHT =(int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2;
     private double maxX;
     private double maxY;
     private double minX;
@@ -23,8 +23,6 @@ public class myPanel extends JPanel {
     //for the menubar actions
     NodeData centerNode;
     boolean center=false;
-    boolean drawNode;
-    NodeData n;
 
 
 
@@ -40,7 +38,6 @@ public class myPanel extends JPanel {
         graphAlgorithms.init(g);
         centerNode = graphAlgorithms.center();
         shortestPath = null;
-        n = new Node();
         this.setLayout(new BorderLayout());
         this.setBackground(Color.WHITE);
         setValues(graphAlgorithms);
@@ -61,20 +58,18 @@ public class myPanel extends JPanel {
         this.shortestPath = shortestPath;
     }
 
-    public void setN(NodeData n) {
-        this.n = n;
-    }
+
 
 
     @Override
     protected void paintComponent(Graphics graphics){
-        graphics.clearRect(0,0,getWidth(), getHeight()); // repainting the screen
+        graphics.clearRect(0,0,WIDTH, HEIGHT); // repainting the screen
+        setValues(graphAlgorithms);
         super.paintComponent(graphics);
         int _width = WIDTH;
         int _height= HEIGHT;
         drawGraph(graphics, _width, _height);
         setVisible(true);
-        //repaint();
 
 
     }
@@ -84,67 +79,69 @@ public class myPanel extends JPanel {
         Iterator<NodeData> iterator_node = graph.nodeIter();
         double xAbs = Math.abs(minX - maxX);
         double yAbs = Math.abs(minY - maxY);
-        double xScale = (width/xAbs)*0.4;
-        double yScale = (height/yAbs)*0.4;
+        double xScale = (width / xAbs) * 0.75;
+        double yScale = (height / yAbs) * 0.75;
 
         while (iterator_node.hasNext()) {
             //adjusting the graph to the screen scale
             NodeData e = iterator_node.next();
             double x = (e.getLocation().x() - minX);
             double y = (e.getLocation().y() - minY);
-            int X = (int) (x*xScale);
-            int Y = (int) (y*yScale);
+            int X = (int) (x * xScale);
+            int Y = (int) (y * yScale);
 
             graphics.setColor(Color.PINK);
             drawNode(graphics, X + 20, Y + 20, e.getKey());
             setVisible(true);
             Iterator<EdgeData> iterator_edge = graph.edgeIter(e.getKey());
+            if(iterator_edge == null)
+                continue;
             while (iterator_edge.hasNext()) {
                 EdgeData edgeData = iterator_edge.next();
                 double destx = (graph.getNode(edgeData.getDest()).getLocation().x() - minX);
-                double desty =(graph.getNode(edgeData.getDest()).getLocation().y() - minY);
+                double desty = (graph.getNode(edgeData.getDest()).getLocation().y() - minY);
                 int destX = (int) (destx * xScale);
                 int destY = (int) (desty * yScale);
-                int x1 = (int) (x*xScale)+20; int x2 = (int)(destx*xScale)+20; int y1 = (int) (y*yScale)+20; int y2 = (int) (desty*yScale)+20;
-                double theta = Math.atan2(y2-y1, x2-x1); // for the arrow
+                int x1 = (int) (x * xScale) + 20;
+                int x2 = (int) (destx * xScale) + 20;
+                int y1 = (int) (y * yScale) + 20;
+                int y2 = (int) (desty * yScale) + 20;
+                double theta = Math.atan2(y2 - y1, x2 - x1); // for the arrow
                 graphics.setColor(Color.MAGENTA);
-                drawEdge(graphics, (int)X + 20, (int)Y + 20, (int)destX + 20, (int)destY + 20);
+                drawEdge(graphics, (int) X + 20, (int) Y + 20, (int) destX + 20, (int) destY + 20);
                 Graphics2D g = (Graphics2D) graphics;
                 drawArrowLine(g, theta, x2, y2);
                 setVisible(true);
             }
 
         }
-        if(center == true){
+        if (center == true) {
             NodeData node = graphAlgorithms.center();
             double x1 = (centerNode.getLocation().x() - minX) * xScale + 20;
             double y1 = (centerNode.getLocation().y() - minY) * yScale + 20;
             graphics.setColor(new Color(7, 79, 163));
-            graphics.fillOval((int)x1-4,(int)y1-4,10,10);
+            graphics.fillOval((int) x1 - 4, (int) y1 - 4, 10, 10);
             int k = centerNode.getKey();
-            graphics.drawString("This is the center, ID: "+k,(int)x1 - 50 ,(int)y1 + 30);
+            graphics.drawString("This is the center, ID: " + k, (int) x1 - 50, (int) y1 + 30);
             center = false;
         }
 
-        if(sp == true && shortestPath != null){
-            for(int i=0; i<shortestPath.size()-1; i++){
-                EdgeData temp = graphAlgorithms.getGraph().getEdge(shortestPath.get(i).getKey(), shortestPath.get(i+1).getKey());
+        if (sp == true && shortestPath != null) {
+            for (int i = 0; i < shortestPath.size() - 1; i++) {
+                EdgeData temp = graphAlgorithms.getGraph().getEdge(shortestPath.get(i).getKey(), shortestPath.get(i + 1).getKey());
                 double xSrc = (graphAlgorithms.getGraph().getNode(temp.getSrc()).getLocation().x() - minX) * xScale;
                 double ySrc = (graphAlgorithms.getGraph().getNode(temp.getSrc()).getLocation().y() - minY) * yScale;
                 double xDest = (graphAlgorithms.getGraph().getNode(temp.getDest()).getLocation().x() - minX) * xScale;
                 double yDest = (graphAlgorithms.getGraph().getNode(temp.getDest()).getLocation().y() - minY) * yScale;
-                graphics.setColor(new Color(118, 219, 17));
-                Font f = new Font("ariel", Font.BOLD, 16);
+                graphics.setColor(new Color(12, 193, 178));
+                Font f = new Font("ariel", Font.BOLD, 7);
                 graphics.setFont(f);
-                graphics.drawLine((int)xSrc + 20, (int)ySrc + 20, (int)xDest + 20, (int)yDest + 20);
+                graphics.drawLine((int) xSrc + 20, (int) ySrc + 20, (int) xDest + 20, (int) yDest + 20);
+                graphics.drawString(temp.getWeight()+"", (int)((xSrc+xDest)/2 - 10), (int)((ySrc+yDest)/2 ));
                 setVisible(true);
             }
             sp = false;
         }
-//        if(drawNode == true){
-//            drawNode(graphics, (int)((n.getLocation().x()- minX) * xScale + 20), (int)((n.getLocation().y()- minY) * xScale + 20), n.getKey());
-//        }
-
     }
 
     //function that help to find the min and max values of x & y in order to set the scale

@@ -43,7 +43,9 @@ public class myFrame extends JFrame implements ActionListener {
         myPanel p = new myPanel(g);
         Panel = p;
         p.setBackground(Color.WHITE);
-        this.setSize(600, 600);
+        int WIDTH = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
+        int HEIGHT =(int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+        this.setSize(WIDTH/2 +150 , HEIGHT/2 +150);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Ex2");
 
@@ -54,6 +56,7 @@ public class myFrame extends JFrame implements ActionListener {
         this.setVisible(true);
         p.repaint();
     }
+
 
     private void addMenu(){
         menuBar=new JMenuBar();
@@ -181,12 +184,7 @@ public class myFrame extends JFrame implements ActionListener {
                 GeoLocation g = geo;
                 NodeData node = new Node(id, 0, 0, g);
                 graphAlgo.getGraph().addNode(node);
-//                Panel.setN(node);
-//                Panel = new myPanel((Graph) graphAlgo.getGraph());
-//                setVisible(true);
                 repaint();
-
-
 
             }
 
@@ -323,8 +321,8 @@ public class myFrame extends JFrame implements ActionListener {
 
                 }
 
-//                graphAlgo.getGraph().removeNode(id);
-//                repaint();
+                graphAlgo.getGraph().removeNode(id);
+                repaint();
             }
         });
 
@@ -352,12 +350,18 @@ public class myFrame extends JFrame implements ActionListener {
                     if (y < 0) {
                         throw new IllegalArgumentException();
                     }
+                    if(graphAlgo.shortestPath(x, y).size() == -1){
+                        throw new IndexOutOfBoundsException();
+                    }
                 }
                 catch (IllegalArgumentException exp){
                     JOptionPane.showMessageDialog(null, "Number must be positive");
                 }
                 catch (ArithmeticException ex){
                     JOptionPane.showMessageDialog(null, "Please enter a number");
+                }
+                catch (IndexOutOfBoundsException ex){
+                    JOptionPane.showMessageDialog(null, "Path doesn't exist");
                 }
 
                 Panel.sp = true;
@@ -384,7 +388,6 @@ public class myFrame extends JFrame implements ActionListener {
         connected.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
                 if(graphAlgo.isConnected()){
                     JOptionPane.showMessageDialog(null, "The Graph is connected!");
                 }

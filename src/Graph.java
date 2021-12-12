@@ -104,6 +104,7 @@ public class Graph implements DirectedWeightedGraph {
             Node cur = new Node((Node) n);
             this.nodes.put(n.getKey(), cur);
             this.counter++;
+
         }
 
     }
@@ -239,6 +240,7 @@ public class Graph implements DirectedWeightedGraph {
                 int itercounter = counter;
                 Iterator<EdgeData> iterator = edges.get(node_id).values().iterator();
 
+
             @Override
             public boolean hasNext() {
                 if(itercounter != counter){
@@ -285,14 +287,16 @@ public class Graph implements DirectedWeightedGraph {
                 this.nodes.remove(key);
                 this.counter++;
             } else {
-                while (in.get(i) != null) {
-                    removeEdge(in.get(i), key);
+                while (in.size()!=0 && in.get(i) != null) {
+                    int src = in.get(i);
+                    removeEdge(src, key);
                     this.counter++;
                     in.remove(i);
                 }
 
-                while (out.get(i) != null) {
-                    removeEdge(key, out.get(i));
+                while (out.size()!=0 && out.get(i) != null) {
+                    int dest = out.get(i);
+                    removeEdge(dest, key);
                     this.counter++;
                     out.remove(i);
                 }
@@ -314,8 +318,8 @@ public class Graph implements DirectedWeightedGraph {
                 return null;
 
             Edge e = (Edge) edges.get(src).get(dest);
-            ((Node)nodes.get(src)).removeOut((Node)nodes.get(dest));
-            ((Node)nodes.get(dest)).removeIn((Node)nodes.get(src));
+            ((Node)nodes.get(src)).removeOut((Node) nodes.get(dest));
+            ((Node)nodes.get(dest)).removeIn((Node) nodes.get(dest));
             this.edges.get(src).remove(dest);
             this.counter++;
             return e;

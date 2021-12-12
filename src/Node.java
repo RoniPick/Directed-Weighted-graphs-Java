@@ -47,13 +47,20 @@ public class Node implements NodeData{
     }
 
     public void removeIn(Node node){
-        this.inEdge.remove(node);
+        if(this.inEdge.contains(node.getKey())){
+            int temp = this.inEdge.indexOf(node.id);
+            this.inEdge.remove(temp);
+        }
+
     }
 
     public void removeOut(Node node){
-        this.outEdge.remove(node);
-    }
+        if(this.outEdge.contains(node.getKey())){
+            int temp = this.outEdge.indexOf(node.id);
+            this.outEdge.remove(temp);
+        }
 
+    }
 
     public LinkedList getOutEdge() {
         return outEdge;
