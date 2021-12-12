@@ -40,4 +40,12 @@ public class Ex2 {
         myFrame.RunGui((Graph)alg.getGraph());
     }
 
+    public static void main(String[] args) {
+        GraphAlgorithms g = new GraphAlgorithms();
+        g.load("C:/Users/User/IdeaProjects/Ex2_OOP/src/data/G1.json");
+//        runGUI((Graph)g.getGraph());
+        runGUI("C:/Users/User/IdeaProjects/Ex2_OOP/src/data/G1.json");
+
+    }
+
 }
