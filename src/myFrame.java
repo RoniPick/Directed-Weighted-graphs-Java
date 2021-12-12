@@ -5,7 +5,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class myFrame extends JFrame implements ActionListener {
@@ -28,12 +27,12 @@ public class myFrame extends JFrame implements ActionListener {
     JMenuItem load;
     myPanel Panel;
 
-    public static void main(String[] args) {
-        GraphAlgorithms g = new GraphAlgorithms();
-        g.load("C:/Users/User/IdeaProjects/Ex2_OOP/src/data/G1.json");
-        runGUI((Graph)g.getGraph());
-    }
-    public static void runGUI(Graph gr) {
+//    public static void main(String[] args) {
+//        GraphAlgorithms g = new GraphAlgorithms();
+//        g.load("C:/Users/User/IdeaProjects/Ex2_OOP/src/data/G1.json");
+//        RunGui((Graph)g.getGraph());
+//    }
+    public static void RunGui(Graph gr) {
         new myFrame(gr);
     }
 
@@ -92,7 +91,7 @@ public class myFrame extends JFrame implements ActionListener {
                     String getPath = jf.getSelectedFile().getAbsolutePath();
                     graphAlgo.load(getPath);
                     try{
-                        runGUI((Graph) graphAlgo.getGraph());
+                        RunGui((Graph) graphAlgo.getGraph());
                         setVisible(false);
                         dispose();
 
