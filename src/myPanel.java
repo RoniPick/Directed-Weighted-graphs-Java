@@ -13,33 +13,8 @@ public class myPanel extends JPanel {
 
     Graph graph;
     GraphAlgorithms graphAlgorithms;
-    private int WIDTH = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth();
-
-    public int getWIDTH() {
-        return WIDTH;
-    }
-
-    public int getHEIGHT() {
-        return HEIGHT;
-    }
-
-    public double getMaxX() {
-        return maxX;
-    }
-
-    public double getMaxY() {
-        return maxY;
-    }
-
-    public double getMinX() {
-        return minX;
-    }
-
-    public double getMinY() {
-        return minY;
-    }
-
-    private int HEIGHT =(int)Toolkit.getDefaultToolkit().getScreenSize().getHeight();
+    private int WIDTH = (int)Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2;
+    private int HEIGHT =(int)Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2;
     private double maxX;
     private double maxY;
     private double minX;
@@ -88,7 +63,7 @@ public class myPanel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics graphics){
-        graphics.clearRect(0,0,getWidth(), getHeight()); // repainting the screen
+        graphics.clearRect(0,0,WIDTH, HEIGHT); // repainting the screen
         setValues(graphAlgorithms);
         super.paintComponent(graphics);
         int _width = WIDTH;
@@ -104,8 +79,8 @@ public class myPanel extends JPanel {
         Iterator<NodeData> iterator_node = graph.nodeIter();
         double xAbs = Math.abs(minX - maxX);
         double yAbs = Math.abs(minY - maxY);
-        double xScale = (width/2 / xAbs) * 0.75;
-        double yScale = (height/2 / yAbs) * 0.75;
+        double xScale = (width / xAbs) * 0.75;
+        double yScale = (height / yAbs) * 0.75;
 
         while (iterator_node.hasNext()) {
             //adjusting the graph to the screen scale
@@ -158,10 +133,11 @@ public class myPanel extends JPanel {
                 double ySrc = (graphAlgorithms.getGraph().getNode(temp.getSrc()).getLocation().y() - minY) * yScale;
                 double xDest = (graphAlgorithms.getGraph().getNode(temp.getDest()).getLocation().x() - minX) * xScale;
                 double yDest = (graphAlgorithms.getGraph().getNode(temp.getDest()).getLocation().y() - minY) * yScale;
-                graphics.setColor(new Color(118, 219, 17));
-                Font f = new Font("ariel", Font.BOLD, 16);
+                graphics.setColor(new Color(12, 193, 178));
+                Font f = new Font("ariel", Font.BOLD, 7);
                 graphics.setFont(f);
                 graphics.drawLine((int) xSrc + 20, (int) ySrc + 20, (int) xDest + 20, (int) yDest + 20);
+                graphics.drawString(temp.getWeight()+"", (int)((xSrc+xDest)/2 - 10), (int)((ySrc+yDest)/2 ));
                 setVisible(true);
             }
             sp = false;
