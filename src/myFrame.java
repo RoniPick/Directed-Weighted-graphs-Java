@@ -1,3 +1,4 @@
+import api.DirectedWeightedGraphAlgorithms;
 import api.GeoLocation;
 import api.NodeData;
 import javax.swing.*;
@@ -9,8 +10,7 @@ import java.util.LinkedList;
 
 public class myFrame extends JFrame implements ActionListener {
 
-    private GraphAlgorithms graphAlgo;
-    private Graph graph;
+    GraphAlgorithms graphAlgo;
     JMenuBar menuBar;
     JMenu file;
     JMenu edit;
@@ -34,6 +34,7 @@ public class myFrame extends JFrame implements ActionListener {
 //    }
     public static void RunGui(Graph gr) {
         new myFrame(gr);
+
     }
 
     public myFrame(Graph g){
@@ -45,6 +46,7 @@ public class myFrame extends JFrame implements ActionListener {
         this.setSize(600, 600);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setTitle("Ex2");
+
 
         this.setContentPane(p);
         addMenu();
@@ -187,7 +189,9 @@ public class myFrame extends JFrame implements ActionListener {
 
 
             }
-        });
+
+        })
+        ;
 
         addEdge.addActionListener(new ActionListener() {
             @Override
@@ -318,6 +322,7 @@ public class myFrame extends JFrame implements ActionListener {
                     JOptionPane.showMessageDialog(null, "Node doesn't exist");
 
                 }
+
 //                graphAlgo.getGraph().removeNode(id);
 //                repaint();
             }
@@ -379,6 +384,7 @@ public class myFrame extends JFrame implements ActionListener {
         connected.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 if(graphAlgo.isConnected()){
                     JOptionPane.showMessageDialog(null, "The Graph is connected!");
                 }
