@@ -1,6 +1,7 @@
 @startuml
 'https://plantuml.com/class-diagram
 
+
 interface DirectedWeightedGraph{
 	EdgeData getEdge(int src, int dest)
 	void addNode(NodeData n)
