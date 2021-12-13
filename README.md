@@ -58,10 +58,12 @@ The class have functions such as: changes in the graph (add/remove a node/edge),
 
 | Number of Nodes/ Function |  Isconnected   |  ShortestPath  |   shortestPathDist   |   Center   |      Tsp     |
 |---------------------------|----------------|----------------|----------------------|------------|--------------|
-|     1,000 Nodes           |  500-700 ms    |  200-250 ms    |     400-700 ms       |            |  250-350 ms  |
-|     10,000 Nodes          |                |                |                      |            |              |
-|     100,000 Nodes         |                |                |                      |            |              |
-|     1,000,000 Nodes       |                |                |                      |            |              |
+|     1,000 Nodes           |  500-700 ms    |  200-250 ms    |     400-700 ms       |      X     |  250-350 ms  |
+|     10,000 Nodes          |   45-50 sec    |  600-700 ms    |     40-45 sec        |      X     |    1 sec     |
+|     100,000 Nodes         |       X        |      5 sec     |          X           |      X     |     10 sec   |
+|     1,000,000 Nodes       |       X        |       X        |          X           |      X     |       X      |
+
+X - more then 5 minuets to run. 
 
 ## _How to run:_
 In order to run the program, all you need to do is to 
