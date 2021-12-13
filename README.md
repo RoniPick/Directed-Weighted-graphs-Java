@@ -1,5 +1,5 @@
 # OOP Task 2 - Design and implementation of directed and weighted graphs in Java
-## _presented by: Almog David & Roni Pick_
+## _presented by: Almog David - 207749441 & Roni Pick - 206794075_
 
 ## _introduction_:
 
@@ -59,14 +59,37 @@ The class have functions such as: changes in the graph (add/remove a node/edge),
 | Number of Nodes/ Function |  Isconnected   |  ShortestPath  |   shortestPathDist   |   Center   |      Tsp     |
 |---------------------------|----------------|----------------|----------------------|------------|--------------|
 |     1,000 Nodes           |  500-700 ms    |  200-250 ms    |     400-700 ms       |      X     |  250-350 ms  |
-|     10,000 Nodes          |   45-50 sec    |  600-700 ms    |     40-45 sec        |      X     |    1 sec     |
-|     100,000 Nodes         |       X        |      5 sec     |          X           |      X     |     10 sec   |
+|     10,000 Nodes          |   45-50 sec    |  600-700 ms    |     40-45 sec        |      X     |     1 sec    |
+|     100,000 Nodes         |       X        |     5 sec      |          X           |      X     |     10 sec   |
 |     1,000,000 Nodes       |       X        |       X        |          X           |      X     |       X      |
 
 X - more then 5 minuets to run. 
 
 ## _How to run:_
-In order to run the program, all you need to do is to 
+In order to run the program, all you need to do is to download the jar file from github. Then, open the terminal/cmd and write the following:
+
+ java -jar Ex2.jar "your json file name"  - you can enter any graph writen in json you would like. 
+ 
+ ## _the GUI_:
+ 
+ <img width="583" alt="1" src="https://user-images.githubusercontent.com/93771702/145841359-dc76ca74-2c71-4d9a-b8ae-e1de8488838a.PNG">
+
+ **_File:_** In the File menu we have the following:
+ - **load:** In the load option you can select a json file from your computer in order to run the algorithm functions on it.
+ - **save:** In the save options you can save the graph that presented to you after the changes you made.
+ 
+ **_Edit:_** In the Edit menu we have the following:
+ - **Add Node:** You can enter a new node to the graph by giving an ID, X and Y values that represent the location fo the node. The location is based on GPS cordinates (x,y,z). Because we are using a 2D graph, the z parameter is allways 0. If the node is already exist - nothing will happend. 
+ - **Add Edge:** You can connect between to nodes in the graph (create a new edge in the graph) by giving the source node ID, the destination node ID and the weight of the new edge you just created. If the edge already exist - it will change its weight.   
+ - **Remove Node:** You can remove a node from the graph by giving the ID of the node you would like to remove. by removing the node you will also remove all the edges that going to/from this node. If the node doesn't exist - nothing will happend. 
+ - **Remove Edge:** You can remove an edge from the graph by giving the source node ID and the destination node ID. if the edge doesn't exist - nothing will happend. 
+    
+ **_Algorithms_**: In the Algorithms menu we have the following:
+ - **Find shortest path:** You can search for the shortest path from one node to another by giving the source node ID and the destination node ID. the function will mark the path from one node to another and will show the weight of every edge in the path.
+ - **Find center:** when clicking on the "Find center" button you will get the center of the graph. The center of the graph is the node with the smallest path from all the nodes in the graph.  
+ - **Find if connected:** when clicking on the "Find if connected" button you will get an answer if the graph is connected or not. A connected graph is a graph you can reach from every node to all the nodes in the graph. 
+ 
+
 
 
 
