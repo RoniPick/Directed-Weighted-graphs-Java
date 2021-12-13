@@ -187,5 +187,4 @@ public class myPanel extends JPanel {
         y = y2 - arrow * Math.sin(theta - phi);
         g.draw(new Line2D.Double(x2, y2, x, y));
     }
-
 }

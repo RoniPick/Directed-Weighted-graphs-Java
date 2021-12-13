@@ -229,7 +229,6 @@ public class myFrame extends JFrame implements ActionListener {
                     if(graphAlgo.getGraph().getNode(x) == null){
                         throw new IndexOutOfBoundsException();
                     }
-
                 }
                 catch(ArithmeticException ex){
                     JOptionPane.showMessageDialog(null, "Please enter a number");

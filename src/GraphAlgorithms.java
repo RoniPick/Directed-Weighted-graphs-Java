@@ -59,10 +59,8 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
 
     private Boolean BFS(int n) {
         HashMap<Integer,NodeData> visited = new HashMap<>();
-        //LinkedList<Integer> visited = new LinkedList<>(); // we save the nodes id that we visited already
         LinkedList<Integer> queue = new LinkedList(); // in the queue we will put only the nodes that we can reach to from our node.
         queue.add(n);
-        //visited.add(n);
         visited.put(n,this.graph.getNode(n));
         while (!queue.isEmpty()) {
             int temp = queue.poll();
@@ -70,8 +68,6 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
             LinkedList<Integer> out = cur.getOutEdge();
             int index = 0;
             while (index < out.size()) {
-//                if (!visited.contains(out.get(index))) {
-//                    visited.add(out.get(index));
                 if(!visited.containsKey(out.get(index))){
                     visited.put(out.get(index),this.graph.getNode(out.get(index)));
                     queue.add(out.get(index));

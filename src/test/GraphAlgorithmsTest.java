@@ -60,7 +60,6 @@ class GraphAlgorithmsTest {
 //
 //        g.load("C:\\Java Projects\\Ex2_OOP\\src\\data\\G3.json");
 //        assertTrue(g.isConnected());
-
     }
 
     @Test
