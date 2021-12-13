@@ -319,7 +319,13 @@ public class Graph implements DirectedWeightedGraph {
 
         @Override
         public int edgeSize () { //return how many Edges we have
-            return this.edges.size();
+        Iterator <EdgeData> e = this.edgeIter();
+            int ans =0;
+            while(e.hasNext()) {
+                ans++;
+                e.next();
+            }
+            return ans;
         }
 
         @Override

@@ -183,7 +183,6 @@ public class myFrame extends JFrame implements ActionListener {
                 geo.setX(x); geo.setY(y); geo.setZ(0.0);
                 GeoLocation g = geo;
                 NodeData node = new Node(id, 0, 0, g);
-                System.out.println(node.getLocation().x() + " " + node.getLocation().y());
                 graphAlgo.getGraph().addNode(node);
                 repaint();
             }

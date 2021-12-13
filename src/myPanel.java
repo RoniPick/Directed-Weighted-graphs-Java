@@ -115,7 +115,7 @@ public class myPanel extends JPanel {
 
         }
         if (center == true) {
-            NodeData node = graphAlgorithms.center();
+            centerNode = graphAlgorithms.center();
             double x1 = (centerNode.getLocation().x() - minX) * xScale + 20;
             double y1 = (centerNode.getLocation().y() - minY) * yScale + 20;
             graphics.setColor(new Color(7, 79, 163));
@@ -145,7 +145,6 @@ public class myPanel extends JPanel {
 
     //function that help to find the min and max values of x & y in order to set the scale
     public void setValues(GraphAlgorithms g) {
-        System.out.println(minX + " " + minY + " -- " + maxX + " " + maxY);
         this.graphAlgorithms=g;
         maxX = Integer.MIN_VALUE;
         maxY = Integer.MIN_VALUE;
@@ -164,7 +163,6 @@ public class myPanel extends JPanel {
             if (minY > temp.getLocation().y())
                 minY = temp.getLocation().y();
         }
-        System.out.println(minX + " " + minY + " -- " + maxX + " " + maxY);
     }
 
     public void drawNode(Graphics graphics, int x, int y, int key) {

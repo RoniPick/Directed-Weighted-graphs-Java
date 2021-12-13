@@ -58,18 +58,22 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
     }
 
     private Boolean BFS(int n) {
-        LinkedList<Integer> visited = new LinkedList<>(); // we save the nodes id that we visited already
+        HashMap<Integer,NodeData> visited = new HashMap<>();
+        //LinkedList<Integer> visited = new LinkedList<>(); // we save the nodes id that we visited already
         LinkedList<Integer> queue = new LinkedList(); // in the queue we will put only the nodes that we can reach to from our node.
         queue.add(n);
-        visited.add(n);
+        //visited.add(n);
+        visited.put(n,this.graph.getNode(n));
         while (!queue.isEmpty()) {
             int temp = queue.poll();
             Node cur = (Node) graph.getNodes().get(temp);
             LinkedList<Integer> out = cur.getOutEdge();
             int index = 0;
             while (index < out.size()) {
-                if (!visited.contains(out.get(index))) {
-                    visited.add(out.get(index));
+//                if (!visited.contains(out.get(index))) {
+//                    visited.add(out.get(index));
+                if(!visited.containsKey(out.get(index))){
+                    visited.put(out.get(index),this.graph.getNode(out.get(index)));
                     queue.add(out.get(index));
                 }
                 index++;
@@ -90,7 +94,6 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
 
     private HashMap<Integer, Double> DijkstraLength(int src) {
         Graph g = (Graph) copy();
-        LinkedList<Integer> visited = new LinkedList<>();
         HashMap<Integer, Double> distance = new HashMap<>();
         Queue<Node> neighbours = new PriorityQueue<>((v1, v2) -> (int) (v1.getWeight() - v2.getWeight()));
         Iterator<NodeData> nodes = graph.nodeIter();
@@ -102,6 +105,7 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
 
         Node first = (Node) g.getNodes().get(src);
         first.setWeight(0);
+        first.setTag(1);
         neighbours.add(first);
         while (!neighbours.isEmpty()) {
             Node curr = neighbours.poll(); // we need to take the node with the minimum weight.
@@ -145,7 +149,6 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
 
     public HashMap<Integer, NodeData> DijkstraPath(int src) {
         Graph g = (Graph) copy();
-        LinkedList<Integer> visited = new LinkedList<>();
         HashMap<Integer, NodeData> previous = new HashMap<>();
         Queue<Node> neighbours = new PriorityQueue<>((v1, v2) -> (int) (v1.getWeight() - v2.getWeight()));
         Iterator<NodeData> nodes = graph.nodeIter();
@@ -157,6 +160,7 @@ public class GraphAlgorithms implements DirectedWeightedGraphAlgorithms {
 
         Node first = (Node) g.getNodes().get(src);
         first.setWeight(0);
+        first.setTag(1);
         neighbours.add(first);
         while (!neighbours.isEmpty()) {
             Node curr = neighbours.poll(); // we need to take the node with the minimum weight.
