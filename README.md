@@ -44,7 +44,7 @@ The class have functions such as: changes in the graph (add/remove a node/edge),
   - **center():** this algorithm return the node that represent the center of the graph. a center is determined by the minimum length of the group that contains the longest path of every node. in order to find the center we will use a veriant of Dijkstra that return an Hashmap of all the nodes that in the graph (just like in shortestPathLength).
   - **Tsp(list cities):** this algorithm return a list of the shortest path that contains all the cities/nodes that given to us. 
     
-    for more information about the TSP problem: [TSP problem](https://newbedev.com/how-to-draw-a-directed-arrow-line-in-java)
+    for more information about the TSP problem: [TSP problem](https://en.wikipedia.org/wiki/Travelling_salesman_problem)
   - **copy():** deep copying of a graph.
   - **save()/load():** saving the graph to Json object and loading the graph from Json String.
 
